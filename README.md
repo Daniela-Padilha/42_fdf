@@ -10,6 +10,8 @@ This project uses the school's graphical library, MiniLibX.
 
 [MiniLibX Guide](https://qst0.github.io/ft_libgfx/)
 
+[MiniLibX Tutorial](https://github.com/Gontjarow/MiniLibX/tree/master)
+
 [3D Matrix Rotation Calculator](https://www.mathforengineers.com/math-calculators/3D-point-rotation-calculator.html#google_vignette)
 
 
