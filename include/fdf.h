@@ -32,4 +32,7 @@ typedef struct s_fdf {
 	void	*win;
 }			t_fdf;
 
+int	close_window(t_fdf *fdf);
+int	handle_keys(int keycode, t_fdf *fdf);
+
 #endif

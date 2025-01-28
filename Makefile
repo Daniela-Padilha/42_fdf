@@ -29,7 +29,8 @@ SRCS_D = ./srcs
 INCLUDES = ./include
 
 #source files
-SRC = $(SRCS_D)/hooks.c \
+SRC = $(SRCS_D)/fdf.c \
+		$(SRCS_D)/hooks.c \
 
 SRC_BONUS =
 

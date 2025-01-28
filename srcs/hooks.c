@@ -30,13 +30,3 @@ int	handle_keys(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-int main(void)
-{
-	t_fdf	fdf;
-
-	fdf.mlx = mlx_init();
-	fdf.win = mlx_new_window(fdf.mlx, 700, 500, "FdF");
-	mlx_hook(fdf.win, 2, 1L<<0, handle_keys, &fdf);
-	mlx_hook(fdf.win, 17, 0L, close_window, &fdf);
-	mlx_loop(fdf.mlx);
-}

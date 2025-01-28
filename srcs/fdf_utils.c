@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/fdf.h"
 
 char* combine_strings(char* str1, char* str2)
 {
@@ -17,3 +18,4 @@ char* combine_strings(char* str1, char* str2)
 	free(str1); free(str2);
 	return newstr;
 }
+
