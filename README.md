@@ -8,6 +8,8 @@ This project uses the school's graphical library, MiniLibX.
 
 [MiniLibX Documentation](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
 
+[3D Matrix Calculator](https://www.mathforengineers.com/math-calculators/3D-point-rotation-calculator.html#google_vignette)
+
 
 ## The Norm
 
