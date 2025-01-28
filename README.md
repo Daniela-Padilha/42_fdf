@@ -6,6 +6,7 @@ This project uses the school's graphical library, MiniLibX.
 
 ## Sources
 
+[MiniLibX Documentation](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
 
 
 ## The Norm
