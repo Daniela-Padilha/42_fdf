@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   free_arrays.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 16:03:33 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/01/28 16:03:33 by ddo-carm         ###   ########.fr       */
+/*   Created: 2025/01/29 23:06:32 by ddo-carm          #+#    #+#             */
+/*   Updated: 2025/01/29 23:06:32 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+//info    --> Free all the strings in an array and the array itself
+//array   --> Array of strings to be freed
+
+void	free_arrays(void **array)
 {
-	t_fdf	fdf;
+	int	i;
 
-	fdf_init(&fdf);
-	read_file(&fdf);
-	mlx_pixel_put(fdf.mlx, fdf.win, 700/2, 500/2, 0xFFFFFFFF);
-	handle_events(&fdf);
-	mlx_loop(fdf.mlx);
-	return (0);
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+	return ;
 }

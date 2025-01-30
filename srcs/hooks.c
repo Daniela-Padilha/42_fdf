@@ -12,6 +12,13 @@
 
 #include "../include/fdf.h"
 
+int	handle_events(t_fdf *fdf)
+{
+	mlx_hook(fdf->win, 2, 1L<<0, handle_keys, fdf);
+	mlx_hook(fdf->win, 17, 0L, close_window, fdf);
+	return(0);
+}
+
 int	close_window(t_fdf *fdf)
 {
 	if (fdf->win)

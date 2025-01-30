@@ -17,6 +17,7 @@
 # include "../minilibx_linux/mlx.h"
 # include <unistd.h>
 # include <math.h>
+# include <stdbool.h>
 
 # define KEY_ESC	65307
 # define KEY_SUM    65451
@@ -30,8 +31,31 @@
 typedef struct s_fdf {
 	void	*mlx;
 	void	*win;
+  char  *map;
+  int   map_height;
+  int   map_width;
+  char  **matrix_char;
+  int   **matrix;
 }			t_fdf;
 
+typedef struct s_movement {
+  bool up;
+  bool down;
+  bool left;
+  bool right;
+} t_movement;
+
+
+
+//Base
+void	fdf_init(t_fdf *fdf);
+char *check_args(int ac, char **av);
+
+//Map
+char	**read_file(t_fdf *fdf);
+
+
+//Events
 int	close_window(t_fdf *fdf);
 int	handle_keys(int keycode, t_fdf *fdf);
 
