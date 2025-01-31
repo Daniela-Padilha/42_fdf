@@ -12,6 +12,8 @@ This project uses the school's graphical library, MiniLibX.
 
 [MiniLibX Tutorial](https://github.com/Gontjarow/MiniLibX/tree/master)
 
+[Bresenham's Line Drawing Algorithm](https://www.youtube.com/watch?v=RGB-wlatStc&ab_channel=AbdulBari)
+
 [3D Matrix Rotation Calculator](https://www.mathforengineers.com/math-calculators/3D-point-rotation-calculator.html#google_vignette)
 
 
