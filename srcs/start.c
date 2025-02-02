@@ -26,10 +26,3 @@ void	fdf_init(t_fdf *fdf)
 	fdf->width = map_width(fdf);
 	fdf->z = get_z_value(fdf);
 }
-
-// int	render(t_fdf *fdf)
-// {
-// 	two_dim_point(fdf);
-// 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
-// 	return (0);
-// }

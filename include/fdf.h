@@ -67,14 +67,16 @@ typedef struct s_fdf
 	int			height;
 	int			width;
 	int			z;
-	int			in_x;
-	int			in_y;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
 	int			scale;
 	int			slope;
+	int			center_x;
+	int			center_y;
+	int			in_x;
+	int			in_y;
 	t_vector	*vector;
 	t_point		*point;
 	t_delta		*delta;
@@ -89,10 +91,11 @@ int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
 int 	*line_to_ints(t_fdf *fdf, char *line);
+void	center_and_scale(t_fdf *fdf);
 
 //Events
 int 	close_window(t_fdf *fdf);
-int		handle_keys( t_fdf *fdf, int keycode);
+int		handle_keys(t_fdf *fdf, int keycode);
 int		handle_events(t_fdf *fdf);
 int		handle_mouse(t_fdf *fdf, int mousecode);
 
@@ -104,7 +107,6 @@ void	slope_less1(t_fdf *fdf, t_point point0, t_point point1, int color);
 
 //Utils
 char	*check_args(int ac, char **av);
-void	errors(char *message);
 int		ft_count_nbr(char *str);
 int		get_z_value(t_fdf *fdf);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);

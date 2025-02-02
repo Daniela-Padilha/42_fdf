@@ -23,14 +23,14 @@ int	**read_file(t_fdf *fdf)
 
 	fd = open(fdf->map_name, O_RDONLY);
 	if (fd == -1)
-		errors("Error: opening file failed\n");
+		errors("Error: opening file failed", NULL, 1);
 	fdf->height = map_height(fdf);
 	fdf->width = map_width(fdf);
 	map = (int **)malloc(fdf->height * sizeof(int *));
 	if (!map)
 	{
 		close(fd);
-		errors("Error: mem allocation failed");
+		errors("Error: mem allocation failed", NULL, 1);
 	}
 	i = 0;
 	while((line = get_next_line(fd)) != NULL)
@@ -55,7 +55,7 @@ int	*line_to_ints(t_fdf *fdf, char *line)
 	if (!data)
 	{
 		free(split_line);
-		errors("Error: mem allocation failed");
+		errors("Error: mem allocation failed", NULL, 1);
 	}
 	i = 0;
 	while (split_line[i])
@@ -78,7 +78,7 @@ int	map_height(t_fdf *fdf)
 	
 	fd = open(fdf->map_name, O_RDONLY);
 	if (fd == -1)
-	errors("Error: opening file failed\n");
+		errors("Error: opening file failed", NULL, 1);
 	n_lines = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
@@ -88,7 +88,7 @@ int	map_height(t_fdf *fdf)
 	if (n_lines == 0)
 	{
 		close(fd);
-		errors("Error: map is empty\n");
+		errors("Error: map is empty", NULL, 1);
 	}
 	close(fd);
 	return (n_lines);
@@ -105,7 +105,7 @@ int	map_width(t_fdf *fdf)
 
 	fd = open(fdf->map_name, O_RDONLY);
 	if (fd == -1)
-		errors("Error: opening file failed\n");
+		errors("Error: opening file failed", NULL, 1);
 	max = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
@@ -117,9 +117,22 @@ int	map_width(t_fdf *fdf)
 	if (max == 0)
 	{
 		close(fd);
-		errors("Error: map is empty\n");
+		errors("Error: map is empty", NULL, 1);
 	}
 	close(fd);
 	return (max);
 }
 
+void	center_and_scale(t_fdf *fdf)
+{
+    double	scale_factor_x;
+    double	scale_factor_y;
+	double	hipo;
+
+	hipo = sqrt((pow(fdf->width - 1, 2) + pow(fdf->height - 1, 2)));
+	scale_factor_x = fdf->width / hipo;
+	scale_factor_y = fdf->height / hipo;
+    fdf->scale = fmin(scale_factor_x, scale_factor_y);
+	fdf->center_x = (fdf->width - (fdf->scale * (fdf->width - 1))) / 2;
+	fdf->center_y = (fdf->height - (fdf->scale * (fdf->height - 1)))/ 2;
+}

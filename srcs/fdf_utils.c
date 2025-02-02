@@ -37,14 +37,6 @@ char *check_args(int ac, char **av)
 	}
 }
 
-//info --> shows a message and exits
-
-void	errors(char *message)
-{
-	ft_putstr_fd(message, 2);
-	exit(EXIT_FAILURE);
-}
-
 //info --> counts the nbrs in a line, ignoring spaces and 
 //			handling nbrs with multiple digits
 
@@ -78,8 +70,9 @@ int	ft_count_nbr(char *str)
 
 int	get_z_value(t_fdf *fdf)
 {
-	if (fdf->in_y > fdf->height || fdf->in_x > fdf->width || fdf->height < 0 || fdf->width < 0)
-		errors("Error: Out of bounds");
+	if (fdf->in_y > fdf->height || fdf->in_x > fdf->width ||
+			fdf->height < 0 || fdf->width < 0)
+		errors("Error: Out of bounds", NULL, 1);
 	return (fdf->map[fdf->in_x][fdf->in_y]);
 }
 

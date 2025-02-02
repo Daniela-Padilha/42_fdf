@@ -12,24 +12,15 @@
 
 #include "../include/fdf.h"
 
-void apply_scale_factor(t_fdf *fdf)
-{
-    float scale_factor_x = (float)DISP_X / fdf->width;
-    float scale_factor_y = (float)DISP_Y / fdf->height;
-
-    // Optional: To keep the aspect ratio of the map
-    fdf->scale = fmin(scale_factor_x, scale_factor_y);
-}
-
 void	draw_map(t_fdf *fdf, int color)
 {
 	int	x;
 	int	y;
 	
-	apply_scale_factor(fdf);
+	center_and_scale(fdf);
 	fdf->delta = malloc(sizeof(t_delta));
 	if (!fdf->delta)
-		errors("Error: mem allocation for delta failed");
+		errors("Error: mem allocation for delta failed", NULL, 1);
 	y = 0;
 	while (y < fdf->height)
 	{
@@ -37,22 +28,27 @@ void	draw_map(t_fdf *fdf, int color)
 		while (x < fdf->width)
 		{
 		if (x < fdf->width - 1)
+		{
+			ft_printf("Drawing line: (%d, %d) to (%d, %d)\n", x, y, x + 1, y);
     		draw_line(fdf,
-              (t_point){(x - fdf->width / 2) * fdf->scale, (y - fdf->height / 2) * fdf->scale},
-              (t_point){(x - fdf->width / 2 + 1) * fdf->scale, (y - fdf->height / 2) * fdf->scale},
+              (t_point){(x - fdf->width / 2) * fdf->scale, (fdf->map[y][x] - fdf->height / 2) * fdf->scale},
+              (t_point){((x + 1) - fdf->width / 2) * fdf->scale, (fdf->map[y][x + 1] - fdf->height / 2) * fdf->scale},
               color);
-
+		}
 		if (y < fdf->height - 1)
+		{
+			ft_printf("Drawing line: (%d, %d) to (%d, %d)\n", x, y, x, y + 1);
    			draw_line(fdf,
-              (t_point){(x - fdf->width / 2) * fdf->scale, (y - fdf->height / 2) * fdf->scale},
-              (t_point){(x - fdf->width / 2) * fdf->scale, (y - fdf->height / 2 + 1) * fdf->scale},
+              (t_point){(x - fdf->width / 2) * fdf->scale, (fdf->map[y][x] - fdf->height / 2) * fdf->scale},
+              (t_point){(x - fdf->width / 2) * fdf->scale, (fdf->map[y + 1][x] - fdf->height / 2) * fdf->scale},
               color);
-
+		}
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
+	free(fdf->delta);
 }
 
 //info --> draws a line using Bresenham algorithm
@@ -60,7 +56,7 @@ void	draw_map(t_fdf *fdf, int color)
 void	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color)
 {
 	if (!fdf->delta)
-		errors("Error: mem allocation for delta failed");
+		errors("Error: mem allocation for delta failed", NULL, 1);
 	fdf->delta->dx = point1.x - point0.x;
 	fdf->delta->dy = point1.y - point0.y;
 	if (abs(fdf->delta->dx) >= abs(fdf->delta->dy))
@@ -78,7 +74,6 @@ void	slope_bigger1(t_fdf *fdf, t_point point0, t_point point1, int color)
 	{
 		if (point0.x >= 0 && point0.x < fdf->width && point0.y >= 0 && point0.y < fdf->height)
 			pixel_put(fdf, point0.x, point0.y, color);
-		ft_printf("Plotting pixel at (%d, %d)\n", point0.x, point0.y);
 		if (fdf->delta->dy > 0)
 			point0.y++;
 		else
@@ -105,7 +100,6 @@ void	slope_less1(t_fdf *fdf, t_point point0, t_point point1, int color)
 	{
 		if (point0.x >= 0 && point0.x < fdf->width && point0.y >= 0 && point0.y < fdf->height)
 			pixel_put(fdf, point0.x, point0.y, color);
-		ft_printf("Plotting pixel at (%d, %d)\n", point0.x, point0.y);
 		if (fdf->delta->dx > 0)
 			point0.x++;
 		else
