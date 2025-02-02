@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:01:55 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/01/29 23:10:54 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:11:18 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 
 //My Functions
 void	free_arrays(void **array);
+void	errors(char *message, char *complete, int if_exit);
+void	close_pipe(int *fd);
 
 #endif
