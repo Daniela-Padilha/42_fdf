@@ -12,31 +12,13 @@
 
 #include "../include/fdf.h"
 
-char* combine_strings(char* str1, char* str2)
-{
-	char* newstr = ft_strjoin(str1, str2);
-	free(str1); free(str2);
-	return newstr;
-}
-
-void	fdf_init(t_fdf *fdf)
-{
-	fdf.mlx = mlx_init();
-	fdf.win = mlx_new_window(fdf.mlx, 700, 500, "FdF");
-	fdf.map = check_args(ac, av);
-	fdf.matrix_char = read_file(fdf);
-	fdf.map_height = map_height(fdf);
-	fdf.map_width = map_width(fdf);
-	fdf.matrix = 
-}
-
+//info --> checks if the args are the right nbr and type
 
 char *check_args(int ac, char **av)
 {
-	int		fd;
 	char	**file_type;
 
-	if (ac > 2)
+	if (ac != 2)
 	{
 		ft_putstr_fd("Error: Try ./fdf *.fdf\n", 2);
 		exit(EXIT_FAILURE);
@@ -44,13 +26,69 @@ char *check_args(int ac, char **av)
 	file_type = ft_split(av[1], '.');
 	if (ft_strncmp(file_type[1], "fdf", 3) == 0)
 	{
-		free_arrays(file_type);
+		free_arrays((void **)file_type);
 		return(av[1]);
 	}
 	else
 	{
 		ft_putstr_fd("Error: file must be .fdf type\n", 2);
-		free_arrays(file_type);
+		free_arrays((void **)file_type);
 		exit(EXIT_FAILURE);
 	}
+}
+
+//info --> shows a message and exits
+
+void	errors(char *message)
+{
+	ft_putstr_fd(message, 2);
+	exit(EXIT_FAILURE);
+}
+
+//info --> counts the nbrs in a line, ignoring spaces and 
+//			handling nbrs with multiple digits
+
+int	ft_count_nbr(char *str)
+{
+	int	i;
+	int count;
+	int	in_nbr;
+
+	if (!str)
+		return (0);
+	i = 0;
+	count = 0;
+	in_nbr = 0;
+	while(str[i] != '\0')
+	{
+		if (ft_isdigit(str[i]))
+		{
+			if (in_nbr == 0)
+			{
+				in_nbr = 1;
+				count++;
+			}
+		}
+		else
+			in_nbr = 0;
+		i++;
+	}
+	return (count);
+}
+
+int	get_z_value(t_fdf *fdf)
+{
+	if (fdf->in_y > fdf->height || fdf->in_x > fdf->width || fdf->height < 0 || fdf->width < 0)
+		errors("Error: Out of bounds");
+	return (fdf->map[fdf->in_x][fdf->in_y]);
+}
+
+//info --> draws a pixel  and colors it
+
+void	pixel_put(t_fdf *fdf, int x, int y, int color)
+{
+	char	*pxl;
+
+	pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
+	*(unsigned int*)pxl = color;
 }

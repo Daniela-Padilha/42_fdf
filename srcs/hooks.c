@@ -27,13 +27,20 @@ int	close_window(t_fdf *fdf)
 		fdf->win = NULL;
 	}
 	exit(0);
-	return (0);
 }
 
-int	handle_keys(int keycode, t_fdf *fdf)
+int	handle_keys(t_fdf *fdf, int keycode)
 {
 	if(keycode == KEY_ESC)
 		close_window(fdf);
 	return (0);
 }
 
+int	handle_mouse(t_fdf *fdf, int mousecode)
+{
+	if (mousecode == MOUSE_UP)
+		fdf->scale *= ZOOM_FACTOR;
+	else if (mousecode == MOUSE_DOWN)
+		fdf->scale /= ZOOM_FACTOR;
+	return (0);
+}

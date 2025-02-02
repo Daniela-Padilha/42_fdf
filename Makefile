@@ -30,7 +30,11 @@ INCLUDES = ./include
 
 #source files
 SRC = $(SRCS_D)/fdf.c \
+		$(SRCS_D)/start.c \
+		$(SRCS_D)/points.c \
+		$(SRCS_D)/draw.c \
 		$(SRCS_D)/hooks.c \
+		$(SRCS_D)/fdf_utils.c \
 
 SRC_BONUS =
 
