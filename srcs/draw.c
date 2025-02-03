@@ -27,6 +27,7 @@ void	draw_map(t_fdf *fdf, int color)
 		x = 0;
 		while (x < fdf->width)
 		{
+			ft_printf("draw_map: x = %d, y = %d\n", x, y);
 		if (x < fdf->width - 1)
 		{
 			ft_printf("Drawing line: (%d, %d) to (%d, %d)\n", x, y, x + 1, y);

@@ -90,7 +90,7 @@ int		render(t_fdf *fdf);
 int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
-int 	*line_to_ints(t_fdf *fdf, char *line);
+int 	*line_to_ints(char *line);
 void	center_and_scale(t_fdf *fdf);
 
 //Events

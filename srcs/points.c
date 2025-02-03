@@ -25,7 +25,6 @@ int	**read_file(t_fdf *fdf)
 	if (fd == -1)
 		errors("Error: opening file failed", NULL, 1);
 	fdf->height = map_height(fdf);
-	fdf->width = map_width(fdf);
 	map = (int **)malloc(fdf->height * sizeof(int *));
 	if (!map)
 	{
@@ -35,7 +34,7 @@ int	**read_file(t_fdf *fdf)
 	i = 0;
 	while((line = get_next_line(fd)) != NULL)
 	{
-		map[i++] = line_to_ints(fdf, line);
+		map[i++] = line_to_ints(line);
 		free(line);
 	}
 	close(fd);
@@ -44,14 +43,18 @@ int	**read_file(t_fdf *fdf)
 
 //info --> converts the line into an array of ints
 
-int	*line_to_ints(t_fdf *fdf, char *line)
+int	*line_to_ints(char *line)
 {
 	char	**split_line;
 	int		*data;
 	int		i;
+	int		width;
 
 	split_line = ft_split(line, ' ');
-	data = (int *)malloc(fdf->width * sizeof(int));
+	width = 0;
+	while(split_line[width])
+		width++;
+	data = (int *)malloc(width * sizeof(int));
 	if (!data)
 	{
 		free(split_line);

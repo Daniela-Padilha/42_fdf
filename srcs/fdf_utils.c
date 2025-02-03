@@ -73,7 +73,7 @@ int	get_z_value(t_fdf *fdf)
 	if (fdf->in_y > fdf->height || fdf->in_x > fdf->width ||
 			fdf->height < 0 || fdf->width < 0)
 		errors("Error: Out of bounds", NULL, 1);
-	return (fdf->map[fdf->in_x][fdf->in_y]);
+	return (fdf->map[fdf->in_y][fdf->in_x]);
 }
 
 //info --> draws a pixel  and colors it
@@ -81,7 +81,12 @@ int	get_z_value(t_fdf *fdf)
 void	pixel_put(t_fdf *fdf, int x, int y, int color)
 {
 	char	*pxl;
-
+	
+	if (x < 0 || x >= DISP_X || y < 0 || y >= DISP_Y)
+	{
+        ft_printf("pixel_put: x = %d, y = %d fora dos limites\n", x, y);
+        return; 
+	}
 	pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
 	*(unsigned int*)pxl = color;
 }

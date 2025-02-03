@@ -12,6 +12,22 @@
 
 #include "../include/fdf.h"
 
+int	loop_hook_function(void *param)
+{
+    t_fdf *fdf = (t_fdf *)param;
+    draw_map(fdf, BLUE);
+    return 0;
+}
+
+void	clean_up(t_fdf *fdf)
+{
+	mlx_destroy_image(fdf->mlx, fdf->img);
+    mlx_destroy_window(fdf->mlx, fdf->win);
+    mlx_destroy_display(fdf->mlx);
+    free(fdf->map);
+    free(fdf->delta);
+}
+
 int	main(int ac, char **av)
 {
 	t_fdf	fdf;
@@ -19,8 +35,9 @@ int	main(int ac, char **av)
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
 	ft_printf("%i\n", fdf.map[3][3]);
-	draw_map(&fdf, BLUE);
 	handle_events(&fdf);
+	mlx_loop_hook(fdf.mlx, loop_hook_function, &fdf);
 	mlx_loop(fdf.mlx);
+	clean_up(&fdf);
 	return (0);
 }
