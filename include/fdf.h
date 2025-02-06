@@ -47,8 +47,8 @@ typedef struct s_vector
 
 typedef struct s_point 
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_point;
 
 typedef struct s_delta 
@@ -91,7 +91,7 @@ int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
 int 	*line_to_ints(char *line);
-void	center_and_scale(t_fdf *fdf);
+void	center_and_scale(t_fdf *fdf, t_point *point0, t_point *point1);
 
 //Events
 int 	close_window(t_fdf *fdf);
@@ -100,15 +100,17 @@ int		handle_events(t_fdf *fdf);
 int		handle_mouse(t_fdf *fdf, int mousecode);
 
 //Draw
-void	draw_map(t_fdf *fdf, int color);
-void	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color);
-void	slope_bigger1(t_fdf *fdf, t_point point0, t_point point1, int color);
-void	slope_less1(t_fdf *fdf, t_point point0, t_point point1, int color);
+void	draw_map(t_fdf *fdf);
+void 	draw_line(t_fdf *fdf, t_point *point0, t_point *point1, int color);
+void	slope_bigger1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
+void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
 
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
 int		get_z_value(t_fdf *fdf);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);
+
+void isometric(int x, int y, int *iso_x, int *iso_y);
 
 #endif

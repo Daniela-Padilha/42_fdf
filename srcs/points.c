@@ -125,17 +125,21 @@ int	map_width(t_fdf *fdf)
 	close(fd);
 	return (max);
 }
-
-void	center_and_scale(t_fdf *fdf)
+void center_and_scale(t_fdf *fdf, t_point *point0, t_point *point1)
 {
-    double	scale_factor_x;
-    double	scale_factor_y;
-	double	hipo;
+    // // Apply scaling factor (considering your desired scale)
+    // fdf->scale = fmin(DISP_X / fdf->width, DISP_Y / fdf->height);
+    // point0->x *= fdf->scale;
+    // point0->y *= fdf->scale;
+    // point1->x *= fdf->scale;
+    // point1->y *= fdf->scale;
 
-	hipo = sqrt((pow(fdf->width - 1, 2) + pow(fdf->height - 1, 2)));
-	scale_factor_x = fdf->width / hipo;
-	scale_factor_y = fdf->height / hipo;
-    fdf->scale = fmin(scale_factor_x, scale_factor_y);
-	fdf->center_x = (fdf->width - (fdf->scale * (fdf->width - 1))) / 2;
-	fdf->center_y = (fdf->height - (fdf->scale * (fdf->height - 1)))/ 2;
+    // Move the points back to the center of the screen
+    fdf->center_x = DISP_X / 2;
+    fdf->center_y = DISP_Y / 2;
+    point0->x += fdf->center_x;
+    point0->y += fdf->center_y;
+    point1->x += fdf->center_x;
+    point1->y += fdf->center_y;
 }
+

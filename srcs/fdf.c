@@ -12,12 +12,12 @@
 
 #include "../include/fdf.h"
 
-int	loop_hook_function(void *param)
-{
-    t_fdf *fdf = (t_fdf *)param;
-    draw_map(fdf, BLUE);
-    return 0;
-}
+// int	loop_hook_function(void *param)
+// {
+//     t_fdf *fdf = (t_fdf *)param;
+//     draw_map(fdf, BLUE);
+//     return 0;
+// }
 
 void	clean_up(t_fdf *fdf)
 {
@@ -31,12 +31,14 @@ void	clean_up(t_fdf *fdf)
 int	main(int ac, char **av)
 {
 	t_fdf	fdf;
-
+	
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
-	ft_printf("%i\n", fdf.map[3][3]);
+	// ft_printf("%i\n", fdf.map[3][3]);
 	handle_events(&fdf);
-	mlx_loop_hook(fdf.mlx, loop_hook_function, &fdf);
+	// mlx_loop_hook(fdf.mlx, loop_hook_function, &fdf);
+	draw_map(&fdf);
+	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img, 0, 0);
 	mlx_loop(fdf.mlx);
 	clean_up(&fdf);
 	return (0);

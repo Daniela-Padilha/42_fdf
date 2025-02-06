@@ -12,117 +12,116 @@
 
 #include "../include/fdf.h"
 
-void	draw_map(t_fdf *fdf, int color)
+void draw_map(t_fdf *fdf)
 {
 	int	x;
 	int	y;
-	
-	center_and_scale(fdf);
-	fdf->delta = malloc(sizeof(t_delta));
-	if (!fdf->delta)
-		errors("Error: mem allocation for delta failed", NULL, 1);
+	t_point	point0;
+	t_point	point1;
+
 	y = 0;
-	while (y < fdf->height)
+	while (y < (fdf->height - 1))
 	{
 		x = 0;
-		while (x < fdf->width)
+		while (x < (fdf->width - 1))
 		{
-			ft_printf("draw_map: x = %d, y = %d\n", x, y);
-		if (x < fdf->width - 1)
-		{
-			ft_printf("Drawing line: (%d, %d) to (%d, %d)\n", x, y, x + 1, y);
-    		draw_line(fdf,
-              (t_point){(x - fdf->width / 2) * fdf->scale, (fdf->map[y][x] - fdf->height / 2) * fdf->scale},
-              (t_point){((x + 1) - fdf->width / 2) * fdf->scale, (fdf->map[y][x + 1] - fdf->height / 2) * fdf->scale},
-              color);
-		}
-		if (y < fdf->height - 1)
-		{
-			ft_printf("Drawing line: (%d, %d) to (%d, %d)\n", x, y, x, y + 1);
-   			draw_line(fdf,
-              (t_point){(x - fdf->width / 2) * fdf->scale, (fdf->map[y][x] - fdf->height / 2) * fdf->scale},
-              (t_point){(x - fdf->width / 2) * fdf->scale, (fdf->map[y + 1][x] - fdf->height / 2) * fdf->scale},
-              color);
-		}
+			point0.x = x;
+			point0.y = y;
+			point1.x = x + 1;
+			point1.y = y;
+			center_and_scale(fdf, &point0, &point1);
+			draw_line(fdf, &point0, &point1, BLUE);
+			point1.x = x;
+            point1.y = y + 1;
+            center_and_scale(fdf, &point0, &point1);
+            draw_line(fdf, &point0, &point1, BLUE);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
-	free(fdf->delta);
 }
 
 //info --> draws a line using Bresenham algorithm
 
-void	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color)
+void	draw_line(t_fdf *fdf, t_point *point0, t_point *point1, int color)
 {
+	fdf->delta = malloc(sizeof(t_delta));
 	if (!fdf->delta)
 		errors("Error: mem allocation for delta failed", NULL, 1);
-	fdf->delta->dx = point1.x - point0.x;
-	fdf->delta->dy = point1.y - point0.y;
+	if (point0->x == point1->x && point0->y == point1->y)
+	{
+		free (fdf->delta);
+		return ;
+	}
+	if (point0->x < 0 || point0->x >= DISP_X || point0->y < 0 || point0->y >= DISP_Y ||
+    		point1->x < 0 || point1->x >= DISP_X || point1->y < 0 || point1->y >= DISP_Y)
+	{
+    	ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", point0->x, point0->y);
+    	return ;
+	}
+	fdf->delta->dx = point1->x - point0->x;
+	fdf->delta->dy = point1->y - point0->y;
 	if (abs(fdf->delta->dx) >= abs(fdf->delta->dy))
 		slope_less1(fdf, point0, point1, color);
 	else
 		slope_bigger1(fdf, point0, point1, color);
+	free(fdf->delta);
 }
 
-void	slope_bigger1(t_fdf *fdf, t_point point0, t_point point1, int color)
+void	slope_bigger1(t_fdf *fdf, t_point *point0, t_point *point1, int color)
 {
 	int	p;
 
 	p = 2 * abs(fdf->delta->dx) - abs(fdf->delta->dy);
-	while (point0.y <= point1.y)
+	while (point0->y <= point1->y)
 	{
-		if (point0.x >= 0 && point0.x < fdf->width && point0.y >= 0 && point0.y < fdf->height)
-			pixel_put(fdf, point0.x, point0.y, color);
-		if (fdf->delta->dy > 0)
-			point0.y++;
-		else
-			point0.y--;
+		pixel_put(fdf, point0->x, point0->y, color);
+		point0->y++;
 		if (p < 0)
 			p = p + 2 * abs(fdf->delta->dx);
 		else
 		{
-			if (fdf->delta->dx > 0)
-				point0.x++;
-			else
-				point0.x--;
 			p = p + 2 * abs(fdf->delta->dx) - 2 * abs(fdf->delta->dy);
+			point0->x++;
 		}
 	}
+	return ;
 }
 
-void	slope_less1(t_fdf *fdf, t_point point0, t_point point1, int color)
+void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color)
 {
 	int	p;
 
 	p = 2 * abs(fdf->delta->dy) - abs(fdf->delta->dx);
-	while (point0.x <= point1.x)
+	while (point0->x <= point1->x)
 	{
-		if (point0.x >= 0 && point0.x < fdf->width && point0.y >= 0 && point0.y < fdf->height)
-			pixel_put(fdf, point0.x, point0.y, color);
-		if (fdf->delta->dx > 0)
-			point0.x++;
-		else
-			point0.x--;
+		pixel_put(fdf, point0->x, point0->y, color);
+		point0->x++;
 		if (p < 0)
 			p = p + 2 * abs(fdf->delta->dy);
 		else
 		{
-			if (fdf->delta->dy > 0)
-				point0.y++;
-			else
-				point0.y--;
 			p = p + 2 * abs(fdf->delta->dy) - 2 * abs(fdf->delta->dx);
+			point0->y++;
 		}
 	}
+	return ;
 }
-
-void  isometric(t_vector *vector)
-{
- int tmp;
-
- tmp = vector->x;
- vector->x = (tmp - vector->y) * cos(0.523599);
- vector->y = (tmp + vector->y) * sin(0.523599) - vector->z;
-}
+// void isometric(int x, int y, int *iso_x, int *iso_y)
+// {
+//     int size = 1;
+//     int iso_x = (x - y) * scale + center_x;
+// 	int iso_y = (x + y) * scale / 2 + center_y;	
+// }
+ 	// int size;
+ 	// t_point vector = {0, 0};
+	// (void)x;
+	// (void)y;
+ 	// size = 1 / 2;
+ 	// vector.x  = (size * sqrt(3)) + (size * - 1) + (size * (-1 / sqrt(2)));
+ 	// vector.y = (size * -sqrt(3)) + (size * - 1) + (size * (-1 / sqrt(2)));
+ 	// // z = (size * 0.2) + (size * (-1 / sqrt(2)));
+	// // vector->x = x;
+ 	// // vector->y = y;
+ 	// // vector->z = z;
+ 	// return(vector);

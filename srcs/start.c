@@ -16,6 +16,13 @@
 
 void	fdf_init(t_fdf *fdf)
 {
+	t_point	*point0;
+	t_point	*point1;
+
+	point1->x = 8;
+	point1->y = 5;
+	point0->x = 1;
+	point0->y = 1; 
 	fdf->mlx = mlx_init();
 	fdf->win = mlx_new_window(fdf->mlx, DISP_X, DISP_Y, "FdF");
 	fdf->img = mlx_new_image(fdf->mlx, DISP_X, DISP_Y);
