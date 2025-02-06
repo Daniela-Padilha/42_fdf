@@ -32,8 +32,10 @@ int	**read_file(t_fdf *fdf)
 		errors("Error: mem allocation failed", NULL, 1);
 	}
 	i = 0;
-	while((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
+		line = get_next_line(fd);
 		map[i++] = line_to_ints(line);
 		free(line);
 	}
@@ -52,7 +54,7 @@ int	*line_to_ints(char *line)
 
 	split_line = ft_split(line, ' ');
 	width = 0;
-	while(split_line[width])
+	while (split_line[width])
 		width++;
 	data = (int *)malloc(width * sizeof(int));
 	if (!data)
@@ -77,14 +79,16 @@ int	map_height(t_fdf *fdf)
 {
 	int		fd;
 	char	*line;
-	int 	n_lines;
-	
+	int		n_lines;
+
 	fd = open(fdf->map_name, O_RDONLY);
 	if (fd == -1)
 		errors("Error: opening file failed", NULL, 1);
 	n_lines = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
+		line = get_next_line(fd);
 		n_lines++;
 		free(line);
 	}
@@ -103,15 +107,17 @@ int	map_width(t_fdf *fdf)
 {
 	int		fd;
 	char	*line;
-	int 	line_len;
+	int		line_len;
 	int		max;
 
 	fd = open(fdf->map_name, O_RDONLY);
 	if (fd == -1)
 		errors("Error: opening file failed", NULL, 1);
 	max = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
+		line = get_next_line(fd);
 		line_len = ft_count_nbr(line);
 		if (line_len > max)
 			max = line_len;
@@ -125,21 +131,20 @@ int	map_width(t_fdf *fdf)
 	close(fd);
 	return (max);
 }
-void center_and_scale(t_fdf *fdf, t_point *point0, t_point *point1)
+
+void	center_and_scale(t_fdf *fdf, t_point *point0, t_point *point1)
 {
-    // // Apply scaling factor (considering your desired scale)
-    // fdf->scale = fmin(DISP_X / fdf->width, DISP_Y / fdf->height);
-    // point0->x *= fdf->scale;
-    // point0->y *= fdf->scale;
-    // point1->x *= fdf->scale;
-    // point1->y *= fdf->scale;
-
-    // Move the points back to the center of the screen
-    fdf->center_x = DISP_X / 2;
-    fdf->center_y = DISP_Y / 2;
-    point0->x += fdf->center_x;
-    point0->y += fdf->center_y;
-    point1->x += fdf->center_x;
-    point1->y += fdf->center_y;
+    //// Apply scaling factor (considering your desired scale)
+    //fdf->scale = fmin(DISP_X / fdf->width, DISP_Y / fdf->height);
+    //point0->x *= fdf->scale;
+    //point0->y *= fdf->scale;
+    //point1->x *= fdf->scale;
+    //point1->y *= fdf->scale;
+    //Move the points back to the center of the screen
+	fdf->center_x = DISP_X / 2;
+	fdf->center_y = DISP_Y / 2;
+	point0->x += fdf->center_x;
+	point0->y += fdf->center_y;
+	point1->x += fdf->center_x;
+	point1->y += fdf->center_y;
 }
-

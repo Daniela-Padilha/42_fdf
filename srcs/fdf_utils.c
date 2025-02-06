@@ -14,7 +14,7 @@
 
 //info --> checks if the args are the right nbr and type
 
-char *check_args(int ac, char **av)
+char	*check_args(int ac, char **av)
 {
 	char	**file_type;
 
@@ -27,7 +27,7 @@ char *check_args(int ac, char **av)
 	if (ft_strncmp(file_type[1], "fdf", 3) == 0)
 	{
 		free_arrays((void **)file_type);
-		return(av[1]);
+		return (av[1]);
 	}
 	else
 	{
@@ -43,7 +43,7 @@ char *check_args(int ac, char **av)
 int	ft_count_nbr(char *str)
 {
 	int	i;
-	int count;
+	int	count;
 	int	in_nbr;
 
 	if (!str)
@@ -51,7 +51,7 @@ int	ft_count_nbr(char *str)
 	i = 0;
 	count = 0;
 	in_nbr = 0;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (ft_isdigit(str[i]))
 		{
@@ -70,8 +70,8 @@ int	ft_count_nbr(char *str)
 
 int	get_z_value(t_fdf *fdf)
 {
-	if (fdf->in_y > fdf->height || fdf->in_x > fdf->width ||
-			fdf->height < 0 || fdf->width < 0)
+	if (fdf->in_y > fdf->height || fdf->in_x > fdf->width
+		|| fdf->height < 0 || fdf->width < 0)
 		errors("Error: Out of bounds", NULL, 1);
 	return (fdf->map[fdf->in_y][fdf->in_x]);
 }
@@ -81,11 +81,12 @@ int	get_z_value(t_fdf *fdf)
 void	pixel_put(t_fdf *fdf, int x, int y, int color)
 {
 	char	*pxl;
+
 	if (x < 0 || y < 0 || x >= fdf->width || y >= fdf->height)
-    {
-        ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", x, y);
-        return ;
-    }
+	{
+		ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", x, y);
+		return ;
+	}
 	pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
 	*(unsigned int *)pxl = color;
 }
