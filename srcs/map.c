@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
-
 char	**read_file(t_fdf *fdf)
 {
 	int		fd;
@@ -20,16 +18,15 @@ char	**read_file(t_fdf *fdf)
 
 	fd = open(fdf->map, O_RDONLY);
 	if (fd == -1)
-		return (1);
+		return(1);
 	line = get_next_line(fd);
 	if (!line)
-		return (close(fd), 1);
+		return(close(fd), 1);
 	matrix_char = ft_split(line, ' ');
 	if (!matrix_char)
-		return (close(fd), free(line), 1);
+		return(close(fd), free(line), 1);
 	return (matrix_char);
 }
-
 int	**create_matrix(t_fdf *fdf)
 {
 	int	**matrix;
@@ -38,9 +35,9 @@ int	**create_matrix(t_fdf *fdf)
 
 	i = 0;
 	j = 0;
-	matrix = (int **)malloc(fdf->map_height * sizeof(int *));
+	matrix = (int**)malloc(fdf->map_height * sizeof(int*));
 	*matrix = (int *)malloc(fdf->map_width * sizeof(int));
-	while (fdf->matrix_char[i][j] && i < fdf.map_height && j < fdf.map_width)
+	while(fdf->matrix_char[i][j] && i < fdf.map_height && j < fdf.map_width)
 	{
 		matrix[i][j] = ft_atoi(fdf->matrix_char[i][j]);
 		i++;

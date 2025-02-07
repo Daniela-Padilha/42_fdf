@@ -22,12 +22,12 @@ void	fdf_init(t_fdf *fdf)
 	point1->x = 8;
 	point1->y = 5;
 	point0->x = 1;
-	point0->y = 1;
+	point0->y = 1; 
 	fdf->mlx = mlx_init();
 	fdf->win = mlx_new_window(fdf->mlx, DISP_X, DISP_Y, "FdF");
 	fdf->img = mlx_new_image(fdf->mlx, DISP_X, DISP_Y);
-	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_per_pixel,
-			&fdf->line_length, &fdf->endian);
+	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_per_pixel, &fdf->line_length,
+									&fdf->endian);
 	fdf->map = read_file(fdf);
 	fdf->height = map_height(fdf);
 	fdf->width = map_width(fdf);

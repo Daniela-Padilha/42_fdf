@@ -14,9 +14,9 @@
 
 int	handle_events(t_fdf *fdf)
 {
-	mlx_hook(fdf->win, 2, 1L << 0, handle_keys, fdf);
+	mlx_hook(fdf->win, 2, 1L<<0, handle_keys, fdf);
 	mlx_hook(fdf->win, 17, 0L, close_window, fdf);
-	return (0);
+	return(0);
 }
 
 int	close_window(t_fdf *fdf)
@@ -31,7 +31,7 @@ int	close_window(t_fdf *fdf)
 
 int	handle_keys(t_fdf *fdf, int keycode)
 {
-	if (keycode == KEY_ESC)
+	if(keycode == KEY_ESC)
 		close_window(fdf);
 	return (0);
 }

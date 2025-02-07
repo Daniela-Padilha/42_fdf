@@ -22,16 +22,16 @@
 void	clean_up(t_fdf *fdf)
 {
 	mlx_destroy_image(fdf->mlx, fdf->img);
-	mlx_destroy_window(fdf->mlx, fdf->win);
-	mlx_destroy_display(fdf->mlx);
-	free(fdf->map);
-	free(fdf->delta);
+    mlx_destroy_window(fdf->mlx, fdf->win);
+    mlx_destroy_display(fdf->mlx);
+    free(fdf->map);
+    free(fdf->delta);
 }
 
 int	main(int ac, char **av)
 {
 	t_fdf	fdf;
-
+	
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
 	// ft_printf("%i\n", fdf.map[3][3]);
