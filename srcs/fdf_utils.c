@@ -72,7 +72,7 @@ int	get_z_value(t_fdf *fdf, int x, int y)
 {
 	if (y > fdf->height || x > fdf->width
 		|| fdf->height < 0 || fdf->width < 0)
-		errors("Error: Out of bounds", NULL, 1);
+		errors("Error: Out of bounds", NULL, 0);
 	return (fdf->map[y][x]);
 }
 
@@ -81,6 +81,7 @@ int	get_z_value(t_fdf *fdf, int x, int y)
 void	pixel_put(t_fdf *fdf, int x, int y, int color)
 {
 	char	*pxl;
+	
 	if (x < 0 || y < 0 || x >= fdf->width || y >= fdf->height)
     {
         ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", x, y);

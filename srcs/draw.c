@@ -12,15 +12,20 @@
 
 #include "../include/fdf.h"
 
-t_point	*cartesian_to_iso(t_point cartesian, int z, int distance)
+t_point	cartesian_to_iso(t_point cartesian, int z, int distance)
 {
-	t_point	*isometric = NULL;
+	t_point	isometric;
 
+	// isometric = malloc(sizeof(t_point));
+	// if (!isometric)
+	// 	errors("Error: mem allocation for isometric failed", NULL, 1);
+	ft_printf("iiiiiiiiii");
 	cartesian.x *= distance;
 	cartesian.y *= distance;
 	z *= distance;
-	isometric->x = (cartesian.x + cartesian.y); // Adjusted for left rotation
-	isometric->y = (cartesian.y - cartesian.x) / 2 - z / 2; // Adjusted for left rotation
+	isometric.x = (cartesian.x + cartesian.y);
+	isometric.y = (cartesian.y - cartesian.x) / 2 - (z / 2);
+	ft_printf("iso done");
 	return (isometric);
 }
 
@@ -41,15 +46,13 @@ void	draw_map(t_fdf *fdf)
 			point0.y = y;
 			point1.x = x + 1;
 			point1.y = y;
-			// center_and_scale(fdf, &point0, &point1);
-			ft_printf("aaaaaaaaaaaaaa");
-			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 10), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 10), BLUE);
-			center(fdf, &point0, &point1);
-			ft_printf("line DONE");
+			ft_printf("draw point0x = %i, y = %i\n", point0.x, point0.y);
+			ft_printf("draw point1x = %i, y = %i\n", point1.x, point1.y);
+			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 20), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 20), BLUE);
+			// center(fdf, &point0, &point1);
 			point1.x = x;
 			point1.y = y + 1;
-			// center_and_scale(fdf, &point0, &point1);
-			draw_line(fdf, &point0, &point1, BLUE);
+			draw_line(fdf, point0, point1, BLUE);
 			x++;
 		}
 		y++;
@@ -58,31 +61,29 @@ void	draw_map(t_fdf *fdf)
 
 //info --> draws a line using Bresenham algorithm
 
-void	draw_line(t_fdf *fdf, t_point *point0, t_point *point1, int color)
+void	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color)
 {
 	fdf->delta = malloc(sizeof(t_delta));
 	if (!fdf->delta)
 		errors("Error: mem allocation for delta failed", NULL, 1);
-	if (point0->x == point1->x && point0->y == point1->y)
+	if (point0.x == point1.x && point0.y == point1.y)
 	{
 		free (fdf->delta);
 		return ;
 	}
-	if (point0->x < 0 || point0->x >= DISP_X || point0->y < 0
-		|| point0->y >= DISP_Y || point1->x < 0 || point1->x >= DISP_X
-		|| point1->y < 0 || point1->y >= DISP_Y)
+	if (point0.x < 0 || point0.x >= DISP_X || point0.y < 0
+		|| point0.y >= DISP_Y || point1.x < 0 || point1.x >= DISP_X
+		|| point1.y < 0 || point1.y >= DISP_Y)
 	{
-    	ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", point0->x, point0->y);
+    	ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", point0.x, point0.y);
     	return ;
 	}
-	ft_printf("ALLOC\n");
-	fdf->delta->dx = point1->x - point0->x;
-	fdf->delta->dy = point1->y - point0->y;
-		ft_printf("deltas done\n");
+	fdf->delta->dx = point1.x - point0.x;
+	fdf->delta->dy = point1.y - point0.y;
 	if (abs(fdf->delta->dx) >= abs(fdf->delta->dy))
-		slope_less1(fdf, point0, point1, color);
+		slope_less1(fdf, &point0, &point1, color);
 	else
-		slope_bigger1(fdf, point0, point1, color);
+		slope_bigger1(fdf, &point0, &point1, color);
 	free(fdf->delta);
 }
 

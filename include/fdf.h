@@ -92,10 +92,10 @@ int		handle_mouse(t_fdf *fdf, int mousecode);
 
 //Draw
 void	draw_map(t_fdf *fdf);
-void 	draw_line(t_fdf *fdf, t_point *point0, t_point *point1, int color);
+void 	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color);
 void	slope_bigger1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
 void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
-t_point	*cartesian_to_iso(t_point cartesian, int z, int distance);
+t_point	cartesian_to_iso(t_point cartesian, int z, int distance);
 
 //Utils
 char	*check_args(int ac, char **av);
