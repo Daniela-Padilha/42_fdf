@@ -51,7 +51,7 @@ int	ft_count_nbr(char *str)
 	i = 0;
 	count = 0;
 	in_nbr = 0;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (ft_isdigit(str[i]))
 		{
@@ -68,12 +68,12 @@ int	ft_count_nbr(char *str)
 	return (count);
 }
 
-int	get_z_value(t_fdf *fdf)
+int	get_z_value(t_fdf *fdf, int x, int y)
 {
-	if (fdf->in_y > fdf->height || fdf->in_x > fdf->width ||
-			fdf->height < 0 || fdf->width < 0)
+	if (y > fdf->height || x > fdf->width
+		|| fdf->height < 0 || fdf->width < 0)
 		errors("Error: Out of bounds", NULL, 1);
-	return (fdf->map[fdf->in_y][fdf->in_x]);
+	return (fdf->map[y][x]);
 }
 
 //info --> draws a pixel  and colors it

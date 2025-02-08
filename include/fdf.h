@@ -38,17 +38,11 @@
 # define BLACK	0x000000
 # define BLUE	0x0000FF
 
-typedef struct s_vector 
-{
-	int		x;
-	int		y;
-	int		z;
-}	t_vector;
-
 typedef struct s_point 
 {
-	double	x;
-	double	y;
+	int	x;
+	int	y;
+	int	z;
 }	t_point;
 
 typedef struct s_delta 
@@ -66,7 +60,6 @@ typedef struct s_fdf
 	int			**map;
 	int			height;
 	int			width;
-	int			z;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;
@@ -77,21 +70,19 @@ typedef struct s_fdf
 	int			center_y;
 	int			in_x;
 	int			in_y;
-	t_vector	*vector;
 	t_point		*point;
 	t_delta		*delta;
 }	t_fdf;
 
 //Start
 void	fdf_init(t_fdf *fdf);
-int		render(t_fdf *fdf);
 
 //Points
 int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
 int 	*line_to_ints(char *line);
-void	center_and_scale(t_fdf *fdf, t_point *point0, t_point *point1);
+void	center(t_fdf *fdf, t_point *point0, t_point *point1);
 
 //Events
 int 	close_window(t_fdf *fdf);
@@ -104,13 +95,12 @@ void	draw_map(t_fdf *fdf);
 void 	draw_line(t_fdf *fdf, t_point *point0, t_point *point1, int color);
 void	slope_bigger1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
 void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
+t_point	*cartesian_to_iso(t_point cartesian, int z, int distance);
 
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
-int		get_z_value(t_fdf *fdf);
+int		get_z_value(t_fdf *fdf, int x, int y);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);
-
-void isometric(int x, int y, int *iso_x, int *iso_y);
 
 #endif

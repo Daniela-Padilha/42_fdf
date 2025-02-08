@@ -12,10 +12,22 @@
 
 #include "../include/fdf.h"
 
-void draw_map(t_fdf *fdf)
+t_point	*cartesian_to_iso(t_point cartesian, int z, int distance)
 {
-	int	x;
-	int	y;
+	t_point	*isometric = NULL;
+
+	cartesian.x *= distance;
+	cartesian.y *= distance;
+	z *= distance;
+	isometric->x = (cartesian.x + cartesian.y); // Adjusted for left rotation
+	isometric->y = (cartesian.y - cartesian.x) / 2 - z / 2; // Adjusted for left rotation
+	return (isometric);
+}
+
+void	draw_map(t_fdf *fdf)
+{
+	int		x;
+	int		y;
 	t_point	point0;
 	t_point	point1;
 
@@ -29,12 +41,15 @@ void draw_map(t_fdf *fdf)
 			point0.y = y;
 			point1.x = x + 1;
 			point1.y = y;
-			center_and_scale(fdf, &point0, &point1);
-			draw_line(fdf, &point0, &point1, BLUE);
+			// center_and_scale(fdf, &point0, &point1);
+			ft_printf("aaaaaaaaaaaaaa");
+			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 10), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 10), BLUE);
+			center(fdf, &point0, &point1);
+			ft_printf("line DONE");
 			point1.x = x;
-            point1.y = y + 1;
-            center_and_scale(fdf, &point0, &point1);
-            draw_line(fdf, &point0, &point1, BLUE);
+			point1.y = y + 1;
+			// center_and_scale(fdf, &point0, &point1);
+			draw_line(fdf, &point0, &point1, BLUE);
 			x++;
 		}
 		y++;
@@ -53,14 +68,17 @@ void	draw_line(t_fdf *fdf, t_point *point0, t_point *point1, int color)
 		free (fdf->delta);
 		return ;
 	}
-	if (point0->x < 0 || point0->x >= DISP_X || point0->y < 0 || point0->y >= DISP_Y ||
-    		point1->x < 0 || point1->x >= DISP_X || point1->y < 0 || point1->y >= DISP_Y)
+	if (point0->x < 0 || point0->x >= DISP_X || point0->y < 0
+		|| point0->y >= DISP_Y || point1->x < 0 || point1->x >= DISP_X
+		|| point1->y < 0 || point1->y >= DISP_Y)
 	{
     	ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", point0->x, point0->y);
     	return ;
 	}
+	ft_printf("ALLOC\n");
 	fdf->delta->dx = point1->x - point0->x;
 	fdf->delta->dy = point1->y - point0->y;
+		ft_printf("deltas done\n");
 	if (abs(fdf->delta->dx) >= abs(fdf->delta->dy))
 		slope_less1(fdf, point0, point1, color);
 	else
@@ -107,21 +125,4 @@ void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color)
 	}
 	return ;
 }
-// void isometric(int x, int y, int *iso_x, int *iso_y)
-// {
-//     int size = 1;
-//     int iso_x = (x - y) * scale + center_x;
-// 	int iso_y = (x + y) * scale / 2 + center_y;	
-// }
- 	// int size;
- 	// t_point vector = {0, 0};
-	// (void)x;
-	// (void)y;
- 	// size = 1 / 2;
- 	// vector.x  = (size * sqrt(3)) + (size * - 1) + (size * (-1 / sqrt(2)));
- 	// vector.y = (size * -sqrt(3)) + (size * - 1) + (size * (-1 / sqrt(2)));
- 	// // z = (size * 0.2) + (size * (-1 / sqrt(2)));
-	// // vector->x = x;
- 	// // vector->y = y;
- 	// // vector->z = z;
- 	// return(vector);
+

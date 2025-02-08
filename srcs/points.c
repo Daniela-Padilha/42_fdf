@@ -32,10 +32,12 @@ int	**read_file(t_fdf *fdf)
 		errors("Error: mem allocation failed", NULL, 1);
 	}
 	i = 0;
-	while((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		map[i++] = line_to_ints(line);
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (map);
@@ -83,10 +85,12 @@ int	map_height(t_fdf *fdf)
 	if (fd == -1)
 		errors("Error: opening file failed", NULL, 1);
 	n_lines = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		n_lines++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	if (n_lines == 0)
 	{
@@ -110,12 +114,14 @@ int	map_width(t_fdf *fdf)
 	if (fd == -1)
 		errors("Error: opening file failed", NULL, 1);
 	max = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		line_len = ft_count_nbr(line);
 		if (line_len > max)
 			max = line_len;
 		free(line);
+		line = get_next_line(fd);
 	}
 	if (max == 0)
 	{
@@ -125,7 +131,7 @@ int	map_width(t_fdf *fdf)
 	close(fd);
 	return (max);
 }
-void center_and_scale(t_fdf *fdf, t_point *point0, t_point *point1)
+void	center(t_fdf *fdf, t_point *point0, t_point *point1)
 {
     // // Apply scaling factor (considering your desired scale)
     // fdf->scale = fmin(DISP_X / fdf->width, DISP_Y / fdf->height);
