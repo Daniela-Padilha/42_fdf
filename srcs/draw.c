@@ -16,16 +16,11 @@ t_point	cartesian_to_iso(t_point cartesian, int z, int distance)
 {
 	t_point	isometric;
 
-	// isometric = malloc(sizeof(t_point));
-	// if (!isometric)
-	// 	errors("Error: mem allocation for isometric failed", NULL, 1);
-	ft_printf("iiiiiiiiii");
 	cartesian.x *= distance;
 	cartesian.y *= distance;
 	z *= distance;
 	isometric.x = (cartesian.x + cartesian.y);
 	isometric.y = (cartesian.y - cartesian.x) / 2 - (z / 2);
-	ft_printf("iso done");
 	return (isometric);
 }
 
@@ -46,9 +41,7 @@ void	draw_map(t_fdf *fdf)
 			point0.y = y;
 			point1.x = x + 1;
 			point1.y = y;
-			ft_printf("draw point0x = %i, y = %i\n", point0.x, point0.y);
-			ft_printf("draw point1x = %i, y = %i\n", point1.x, point1.y);
-			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 20), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 20), BLUE);
+			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 200), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 200), BLUE);
 			// center(fdf, &point0, &point1);
 			point1.x = x;
 			point1.y = y + 1;
@@ -74,10 +67,7 @@ void	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color)
 	if (point0.x < 0 || point0.x >= DISP_X || point0.y < 0
 		|| point0.y >= DISP_Y || point1.x < 0 || point1.x >= DISP_X
 		|| point1.y < 0 || point1.y >= DISP_Y)
-	{
-    	ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", point0.x, point0.y);
     	return ;
-	}
 	fdf->delta->dx = point1.x - point0.x;
 	fdf->delta->dy = point1.y - point0.y;
 	if (abs(fdf->delta->dx) >= abs(fdf->delta->dy))

@@ -81,12 +81,9 @@ int	get_z_value(t_fdf *fdf, int x, int y)
 void	pixel_put(t_fdf *fdf, int x, int y, int color)
 {
 	char	*pxl;
-	
+
 	if (x < 0 || y < 0 || x >= fdf->width || y >= fdf->height)
-    {
-        ft_printf("Error: out-of-bounds pixel: (%d, %d)\n", x, y);
         return ;
-    }
 	pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
 	*(unsigned int *)pxl = color;
 }

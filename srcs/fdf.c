@@ -38,7 +38,6 @@ int	main(int ac, char **av)
 	handle_events(&fdf);
 	// mlx_loop_hook(fdf.mlx, loop_hook_function, &fdf);
 	draw_map(&fdf);
-	ft_printf("avgfhfgji");
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img, 0, 0);
 	mlx_loop(fdf.mlx);
 	ft_printf("uuuuuuuu");

@@ -143,12 +143,9 @@ void	center(t_fdf *fdf, t_point *point0, t_point *point1)
     // Move the points back to the center of the screen
     fdf->center_x = DISP_X / 2;
     fdf->center_y = DISP_Y / 2;
-	ft_printf("x = %i, y = %i\n", fdf->center_x , fdf->center_y);
     point0->x += fdf->center_x;
     point0->y += fdf->center_y;
     point1->x += fdf->center_x;
     point1->y += fdf->center_y;
-	ft_printf("point0x = %i, y = %i\n", point0->x, point0->y);
-	ft_printf("point1x = %i, y = %i\n", point1->x, point1->y);
 }
 
