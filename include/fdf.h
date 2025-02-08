@@ -19,8 +19,8 @@
 # include <math.h>
 # include <stdbool.h>
 
-# define DISP_Y	1000
-# define DISP_X	1900
+# define DISP_Y	800
+# define DISP_X	1000
 
 # define KEY_ESC	65307
 # define KEY_SUM	65451

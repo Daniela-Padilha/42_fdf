@@ -20,7 +20,7 @@ t_point	cartesian_to_iso(t_point cartesian, int z, int distance)
 	cartesian.y *= distance;
 	z *= distance;
 	isometric.x = (cartesian.x + cartesian.y);
-	isometric.y = (cartesian.y - cartesian.x) / 2 - (z / 2);
+	isometric.y = (cartesian.y - cartesian.x) / 2.0f - (z / 2.0f);
 	return (isometric);
 }
 
@@ -41,8 +41,12 @@ void	draw_map(t_fdf *fdf)
 			point0.y = y;
 			point1.x = x + 1;
 			point1.y = y;
+			 ft_printf("Before center - point0: x = %i, y = %i\n", point0.x, point0.y);
+            ft_printf("Before center - point1: x = %i, y = %i\n", point1.x, point1.y);
+			center(fdf, &point0, &point1);
+			ft_printf("After center - point0: x = %i, y = %i\n", point0.x, point0.y);
+            ft_printf("After center - point1: x = %i, y = %i\n", point1.x, point1.y);
 			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 200), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 200), BLUE);
-			// center(fdf, &point0, &point1);
 			point1.x = x;
 			point1.y = y + 1;
 			draw_line(fdf, point0, point1, BLUE);
