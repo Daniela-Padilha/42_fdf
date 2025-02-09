@@ -70,8 +70,7 @@ int	ft_count_nbr(char *str)
 
 int	get_z_value(t_fdf *fdf, int x, int y)
 {
-	if (y > fdf->height || x > fdf->width
-		|| fdf->height < 0 || fdf->width < 0)
+	if (x < 0 || y < 0 || y >= fdf->height || x >= fdf->width)
 		errors("Error: Out of bounds", NULL, 0);
 	return (fdf->map[y][x]);
 }

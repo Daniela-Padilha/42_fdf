@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 # define DISP_Y	800
 # define DISP_X	1000
@@ -82,7 +83,7 @@ int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
 int 	*line_to_ints(char *line);
-void	center(t_fdf *fdf, t_point *point0, t_point *point1);
+void	scale_and_center(t_fdf *fdf, t_point *point);
 
 //Events
 int 	close_window(t_fdf *fdf);
@@ -95,7 +96,7 @@ void	draw_map(t_fdf *fdf);
 void 	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color);
 void	slope_bigger1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
 void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
-t_point	cartesian_to_iso(t_point cartesian, int z, int distance);
+t_point	cartesian_to_iso(t_point cartesian);
 
 //Utils
 char	*check_args(int ac, char **av);

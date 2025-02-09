@@ -12,15 +12,13 @@
 
 #include "../include/fdf.h"
 
-t_point	cartesian_to_iso(t_point cartesian, int z, int distance)
+t_point	cartesian_to_iso(t_point cartesian)
 {
 	t_point	isometric;
 
-	cartesian.x *= distance;
-	cartesian.y *= distance;
-	z *= distance;
-	isometric.x = (cartesian.x + cartesian.y);
-	isometric.y = (cartesian.y - cartesian.x) / 2.0f - (z / 2.0f);
+	isometric.x = (cartesian.x - cartesian.y);
+	isometric.y = (cartesian.y + cartesian.x) / 2 - cartesian.z;
+	isometric.z = cartesian.z;
 	return (isometric);
 }
 
@@ -32,25 +30,43 @@ void	draw_map(t_fdf *fdf)
 	t_point	point1;
 
 	y = 0;
-	while (y < (fdf->height - 1))
+	while (y < fdf->height)
 	{
 		x = 0;
-		while (x < (fdf->width - 1))
+		while (x < fdf->width)
 		{
 			point0.x = x;
-			point0.y = y;
-			point1.x = x + 1;
-			point1.y = y;
-			 ft_printf("Before center - point0: x = %i, y = %i\n", point0.x, point0.y);
-            ft_printf("Before center - point1: x = %i, y = %i\n", point1.x, point1.y);
-			center(fdf, &point0, &point1);
-			ft_printf("After center - point0: x = %i, y = %i\n", point0.x, point0.y);
-            ft_printf("After center - point1: x = %i, y = %i\n", point1.x, point1.y);
-			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 200), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 200), BLUE);
-			point1.x = x;
-			point1.y = y + 1;
-			draw_line(fdf, point0, point1, BLUE);
+            point0.y = y;
+            point0.z = get_z_value(fdf, x, y);
+			printf("Original: x0: %d, y0: %d, z0: %d\n", point0.x, point0.y, point0.z);
+			point0 = cartesian_to_iso(point0);
+			printf("After iso: x0: %d, y0: %d, z0: %d\n", point0.x, point0.y, point0.z);
+            scale_and_center(fdf, &point0);
+			if (x < fdf->width - 1)
+            {
+				ft_printf("x0: %i, y0: %i, z0: %i\n",point0.x, point0.y, point0.z);
+            	point1.x = x + 1;
+                point1.y = y;
+                point1.z = get_z_value(fdf, x + 1, y);
+				printf("Horizontal next: x1: %d, y1: %d, z1: %d\n", point1.x, point1.y, point1.z);
+                point1 = cartesian_to_iso(point1);
+				printf("After iso: x1: %d, y1: %d, z1: %d\n", point1.x, point1.y, point1.z);
+                scale_and_center(fdf, &point1);
+                draw_line(fdf, point0, point1, BLUE);
+            }
+			if (y < fdf->height - 1)
+            {
+            	point1.x = x;
+                point1.y = y + 1;
+                point1.z = get_z_value(fdf, x, y + 1);
+				printf("Vertical next: x1: %d, y1: %d, z1: %d\n", point1.x, point1.y, point1.z);
+                point1 = cartesian_to_iso(point1);
+				printf("After iso: x1: %d, y1: %d, z1: %d\n", point1.x, point1.y, point1.z);
+                scale_and_center(fdf, &point1);
+                draw_line(fdf, point0, point1, BLUE);
+            }
 			x++;
+			printf("\n");
 		}
 		y++;
 	}
