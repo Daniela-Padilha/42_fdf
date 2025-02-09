@@ -79,10 +79,11 @@ int	get_z_value(t_fdf *fdf, int x, int y)
 
 void	pixel_put(t_fdf *fdf, int x, int y, int color)
 {
-	char	*pxl;
+    char *pxl;
 
-	if (x < 0 || y < 0 || x >= fdf->width || y >= fdf->height)
-        return ;
-	pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
-	*(unsigned int *)pxl = color;
+    if (x < 0 || y < 0 || x >= DISP_X || y >= DISP_Y)
+        return;
+    pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
+    *(unsigned int *)pxl = color;
+    printf("Pixel drawn at (%d, %d) with color %X\n", x, y, color);
 }

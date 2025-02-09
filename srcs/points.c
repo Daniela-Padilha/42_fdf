@@ -133,28 +133,19 @@ int	map_width(t_fdf *fdf)
 }
 void	scale_and_center(t_fdf *fdf, t_point *point)
 {
-	double	scale_x;
-	double	scale_y;
-	double scaled_x;
-	double scaled_y;
+ double scale = 25.0; // Reduced from 50 to 25
+    int offset_x = 500;
+    int offset_y = 400;
 
-	if (fdf->scale == 0)
-	{
-		scale_x = (double)(DISP_X * 0.75) / (fdf->width + fdf->height);
-        scale_y = (double)(DISP_Y * 0.75) / ((fdf->width + fdf->height) / 2);
-		fdf->scale = fmin(scale_x, scale_y);
-		fdf->center_x = DISP_X / 2;
-   		fdf->center_y = DISP_Y / 2;
-	}
-   	scaled_x = point->x * fdf->scale;
-    scaled_y = point->y * fdf->scale;
-	scaled_x += fdf->center_x - ((fdf->width + fdf->height) * fdf->scale / 2);
-    scaled_y += fdf->center_y - ((fdf->width + fdf->height) * fdf->scale / 4);
-    point->x = (int)fmax(0, fmin(scaled_x, DISP_X - 1));
-    point->y = (int)fmax(0, fmin(scaled_y, DISP_Y - 1));
+	(void)fdf;
+    point->x = (int)(point->x * scale) + offset_x;
+    point->y = (int)(point->y * scale) + offset_y - (point->z * 2); // Subtracted z*2 to lift higher points
+    point->z = point->z * 5;
 
-    // Z-coordinate scaling (if needed)
-     point->z = (int)(point->z * (fdf->scale * 0.1));
-	printf("After scale and center: x: %d, y: %d, z: %d\n", point->x, point->y, point->z);
+    // Ensure points are within the display area
+    point->x = fmax(0, fmin(point->x, DISP_X - 1));
+    point->y = fmax(0, fmin(point->y, DISP_Y - 1));
+
+    printf("After scale and center: x: %d, y: %d, z: %d\n", point->x, point->y, point->z);
 }
 

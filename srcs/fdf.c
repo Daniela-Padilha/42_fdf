@@ -34,14 +34,9 @@ int	main(int ac, char **av)
 	
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
-	// ft_printf("%i\n", fdf.map[3][3]);
 	handle_events(&fdf);
-	// mlx_loop_hook(fdf.mlx, loop_hook_function, &fdf);
 	draw_map(&fdf);
-	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img, 0, 0);
 	mlx_loop(fdf.mlx);
-	ft_printf("uuuuuuuu");
 	clean_up(&fdf);
-	ft_printf("aaaaa");
 	return (0);
 }
