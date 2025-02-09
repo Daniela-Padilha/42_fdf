@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:57:26 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/02/09 17:56:01 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:34:34 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	scale_and_center(t_fdf *fdf, t_point *point)
 
 	offset_x = 500;
 	offset_y = 400;
-	fdf->scale = 25.0;
     point->x = (int)(point->x * fdf->scale) + offset_x;
     point->y = (int)(point->y * fdf->scale) + offset_y - (point->z * 2);
     point->z = point->z * 5;

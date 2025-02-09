@@ -19,25 +19,15 @@
 //     return 0;
 // }
 
-void	clean_up(t_fdf *fdf)
-{
-	mlx_destroy_image(fdf->mlx, fdf->img);
-    mlx_destroy_window(fdf->mlx, fdf->win);
-    mlx_destroy_display(fdf->mlx);
-    free(fdf->map);
-    free(fdf->params);
-}
 
 int	main(int ac, char **av)
 {
 	t_fdf	fdf;
-	t_line	params;
 	
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
 	handle_events(&fdf);
-	draw_map(&fdf, &params);
+	draw_map(&fdf, fdf.params);
 	mlx_loop(fdf.mlx);
-	clean_up(&fdf);
 	return (0);
 }

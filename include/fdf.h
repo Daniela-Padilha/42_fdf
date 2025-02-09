@@ -29,10 +29,12 @@
 # define MOUSE_LEFT		1
 # define MOUSE_RIGHT	2
 # define MOUSE_MIDDLE	3
-# define MOUSE_UP		4
-# define MOUSE_DOWN		5
+# define SCROLL_UP		4
+# define SCROLL_DOWN	5
 
-# define ZOOM_FACTOR	1
+# define ZOOM_FACTOR	1.1
+#define MIN_SCALE 		0.1
+#define MAX_SCALE 		10
 
 # define WHITE	0xFFFFFF
 # define RED	0x00FF0000
@@ -76,6 +78,7 @@ typedef struct s_fdf
 
 //Start
 void	fdf_init(t_fdf *fdf);
+void	params_init(t_line *params);
 
 //Parse Map (points)
 int		**read_file(t_fdf *fdf);
@@ -97,11 +100,11 @@ int		get_z_value(t_fdf *fdf, int x, int y);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);
 t_point get_next_point(t_fdf *fdf, int x, int y);
 
-//Events
-int 	close_window(t_fdf *fdf);
-int		handle_keys(t_fdf *fdf, int keycode);
+//Hooks
+int		clean_up(t_fdf *fdf);
+int		handle_keys(int keycode, void *params);
 int		handle_events(t_fdf *fdf);
-int		handle_mouse(t_fdf *fdf, int mousecode);
+int		handle_mouse(t_fdf *fdf, int mousecode, int x, int y);
 
 //Utils
 char	*check_args(int ac, char **av);
