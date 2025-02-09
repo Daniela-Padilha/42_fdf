@@ -16,46 +16,66 @@
 
 void	draw_map(t_fdf *fdf, t_line *params)
 {
-	int		x;
 	int		y;
-	t_point	point0;
-	t_point	point1;
+	t_point	current;
 
+	ft_memset(fdf->addr, 0, DISP_Y * fdf->line_length);
 	y = 0;
 	while (y < fdf->height)
 	{
-		x = 0;
-		while (x < fdf->width)
+		current.x = 0;
+		current.y = y;
+		while (current.x < fdf->width)
 		{
-			point0.x = x;
-            point0.y = y;
-            point0.z = get_z_value(fdf, x, y);
-			point0 = cartesian_to_iso(point0);
-            scale_and_center(fdf, &point0);
-			if (x < fdf->width - 1)
-            {
-				ft_printf("x0: %i, y0: %i, z0: %i\n",point0.x, point0.y, point0.z);
-            	point1.x = x + 1;
-                point1.y = y;
-                point1.z = get_z_value(fdf, x + 1, y);
-                point1 = cartesian_to_iso(point1);
-                scale_and_center(fdf, &point1);
-                draw_line(fdf, point0, point1, params);
-            }
-			if (y < fdf->height - 1)
-            {
-            	point1.x = x;
-                point1.y = y + 1;
-                point1.z = get_z_value(fdf, x, y + 1);
-                point1 = cartesian_to_iso(point1);
-                scale_and_center(fdf, &point1);
-                draw_line(fdf, point0, point1, params);
-            }
-			x++;
+            current.z = get_z_value(fdf, current.x, current.y);
+			draw_part2(fdf, params, &current);
+			current.x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
+}
+
+void	draw_part2(t_fdf *fdf, t_line *params, t_point *current)
+{
+	t_point *next;
+
+	next = malloc(sizeof(t_point));
+	if (next == NULL)
+	{
+		errors("Error: memory allocation of next failed", NULL, 0);
+		return ;
+	}
+	if (current->x < fdf->width - 1)
+    {
+		next->x = current->x + 1;
+   		next->y = current->y;
+    	next->z = get_z_value(fdf, next->x, next->y);
+    	draw_transformed_line(fdf, params, current, next);
+	}
+	if (current->y < fdf->height - 1)
+	{
+		next->x = current->x;
+   	 	next->y = current->y + 1;
+    	next->z = get_z_value(fdf, next->x, next->y);
+    	draw_transformed_line(fdf, params, current, next);
+	}
+	free(next);
+}
+
+//info --> handles the transformations
+
+void	draw_transformed_line(t_fdf *fdf, t_line *params, t_point *p0, t_point *p1)
+{
+	t_point	transformed_p0;
+	t_point	transformed_p1;
+
+	transformed_p0 = cartesian_to_iso(*p0);
+	transformed_p1 = cartesian_to_iso(*p1);
+    scale_and_center(fdf, &transformed_p0);
+    scale_and_center(fdf, &transformed_p1);
+
+    draw_line(fdf, &transformed_p0, &transformed_p1, params);
 }
 
 //info   --> draws a line using Bresenham algorithm
@@ -64,23 +84,23 @@ void	draw_map(t_fdf *fdf, t_line *params)
 //steps  --> the movements we will make
 //p2     --> determine whether to move diagonally or along a single axis 
 
-void	draw_line(t_fdf *fdf, t_point p0, t_point p1, t_line *params)
+void	draw_line(t_fdf *fdf, t_point *p0, t_point *p1, t_line *params)
 {
-	if (p0.x < 0 || p0.x >= DISP_X || p0.y < 0 || p0.y >= DISP_Y ||
-        p1.x < 0 || p1.x >= DISP_X || p1.y < 0 || p1.y >= DISP_Y)
+	if (p0->x < 0 || p0->x >= DISP_X || p0->y < 0 || p0->y >= DISP_Y ||
+        p1->x < 0 || p1->x >= DISP_X || p1->y < 0 || p1->y >= DISP_Y)
         return ;
-	params->dx = abs(p1.x - p0.x);
-	params->dy = -abs(p1.y - p0.y);
-	if (p0.x < p1.x)
+	params->dx = abs(p1->x - p0->x);
+	params->dy = -abs(p1->y - p0->y);
+	if (p0->x < p1->x)
    		params->step_x = 1;
 	else
    		params->step_x = -1;
-	if (p0.y < p1.y)
+	if (p0->y < p1->y)
    		params->step_y = 1;
 	else
     	params->step_y = -1;
 	params->p = params->dx + params->dy;
-	decision_maker(fdf, p0, p1, params);
+	decision_maker(fdf, *p0, *p1, params);
 }
 
 void	decision_maker(t_fdf *fdf, t_point p0, t_point p1, t_line *params)

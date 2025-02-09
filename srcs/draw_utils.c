@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:57:26 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/02/09 16:01:58 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:56:01 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,16 @@ void	pixel_put(t_fdf *fdf, int x, int y, int color)
         return;
     pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
     *(unsigned int *)pxl = color;
+}
+
+//info --> retrieves and initializes the next point
+
+t_point get_next_point(t_fdf *fdf, int x, int y)
+{
+    t_point next;
+
+    next.x = x;
+    next.y = y;
+    next.z = get_z_value(fdf, x, y);
+    return next;
 }

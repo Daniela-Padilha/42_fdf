@@ -85,7 +85,9 @@ int 	*line_to_ints(char *line);
 
 //Draw
 void	draw_map(t_fdf *fdf, t_line *params);
-void	draw_line(t_fdf *fdf, t_point p0, t_point p1, t_line *params);
+void	draw_part2(t_fdf *fdf, t_line *params, t_point *current);
+void	draw_transformed_line(t_fdf *fdf, t_line *params, t_point *p0, t_point *p1);
+void	draw_line(t_fdf *fdf, t_point *p0, t_point *p1, t_line *params);
 void	decision_maker(t_fdf *fdf, t_point p0, t_point p1, t_line *params);
 
 //Draw_utils
@@ -93,6 +95,7 @@ t_point	cartesian_to_iso(t_point cartesian);
 void	scale_and_center(t_fdf *fdf, t_point *point);
 int		get_z_value(t_fdf *fdf, int x, int y);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);
+t_point get_next_point(t_fdf *fdf, int x, int y);
 
 //Events
 int 	close_window(t_fdf *fdf);
