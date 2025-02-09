@@ -67,23 +67,3 @@ int	ft_count_nbr(char *str)
 	}
 	return (count);
 }
-
-int	get_z_value(t_fdf *fdf, int x, int y)
-{
-	if (y > fdf->height || x > fdf->width
-		|| fdf->height < 0 || fdf->width < 0)
-		errors("Error: Out of bounds", NULL, 0);
-	return (fdf->map[y][x]);
-}
-
-//info --> draws a pixel  and colors it
-
-void	pixel_put(t_fdf *fdf, int x, int y, int color)
-{
-	char	*pxl;
-
-	if (x < 0 || y < 0 || x >= fdf->width || y >= fdf->height)
-        return ;
-	pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
-	*(unsigned int *)pxl = color;
-}

@@ -12,112 +12,116 @@
 
 #include "../include/fdf.h"
 
-t_point	cartesian_to_iso(t_point cartesian, int z, int distance)
-{
-	t_point	isometric;
+//info --> draws the whole map
 
-	cartesian.x *= distance;
-	cartesian.y *= distance;
-	z *= distance;
-	isometric.x = (cartesian.x + cartesian.y);
-	isometric.y = (cartesian.y - cartesian.x) / 2.0f - (z / 2.0f);
-	return (isometric);
-}
-
-void	draw_map(t_fdf *fdf)
+void	draw_map(t_fdf *fdf, t_line *params)
 {
-	int		x;
 	int		y;
-	t_point	point0;
-	t_point	point1;
+	t_point	current;
 
+	ft_memset(fdf->addr, 0, DISP_Y * fdf->line_length);
 	y = 0;
-	while (y < (fdf->height - 1))
+	while (y < fdf->height)
 	{
-		x = 0;
-		while (x < (fdf->width - 1))
+		current.x = 0;
+		current.y = y;
+		while (current.x < fdf->width)
 		{
-			point0.x = x;
-			point0.y = y;
-			point1.x = x + 1;
-			point1.y = y;
-			 ft_printf("Before center - point0: x = %i, y = %i\n", point0.x, point0.y);
-            ft_printf("Before center - point1: x = %i, y = %i\n", point1.x, point1.y);
-			center(fdf, &point0, &point1);
-			ft_printf("After center - point0: x = %i, y = %i\n", point0.x, point0.y);
-            ft_printf("After center - point1: x = %i, y = %i\n", point1.x, point1.y);
-			draw_line(fdf, cartesian_to_iso(point0, get_z_value(fdf, point0.x, point0.y), 200), cartesian_to_iso(point1, get_z_value(fdf, point1.x, point1.y), 200), BLUE);
-			point1.x = x;
-			point1.y = y + 1;
-			draw_line(fdf, point0, point1, BLUE);
-			x++;
+            current.z = get_z_value(fdf, current.x, current.y);
+			draw_part2(fdf, params, &current);
+			current.x++;
 		}
 		y++;
 	}
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
 }
 
-//info --> draws a line using Bresenham algorithm
-
-void	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color)
+void	draw_part2(t_fdf *fdf, t_line *params, t_point *current)
 {
-	fdf->delta = malloc(sizeof(t_delta));
-	if (!fdf->delta)
-		errors("Error: mem allocation for delta failed", NULL, 1);
-	if (point0.x == point1.x && point0.y == point1.y)
+	t_point *next;
+
+	next = malloc(sizeof(t_point));
+	if (next == NULL)
 	{
-		free (fdf->delta);
+		errors("Error: memory allocation of next failed", NULL, 0);
 		return ;
 	}
-	if (point0.x < 0 || point0.x >= DISP_X || point0.y < 0
-		|| point0.y >= DISP_Y || point1.x < 0 || point1.x >= DISP_X
-		|| point1.y < 0 || point1.y >= DISP_Y)
-    	return ;
-	fdf->delta->dx = point1.x - point0.x;
-	fdf->delta->dy = point1.y - point0.y;
-	if (abs(fdf->delta->dx) >= abs(fdf->delta->dy))
-		slope_less1(fdf, &point0, &point1, color);
+	if (current->x < fdf->width - 1)
+    {
+		next->x = current->x + 1;
+   		next->y = current->y;
+    	next->z = get_z_value(fdf, next->x, next->y);
+    	draw_transformed_line(fdf, params, current, next);
+	}
+	if (current->y < fdf->height - 1)
+	{
+		next->x = current->x;
+   	 	next->y = current->y + 1;
+    	next->z = get_z_value(fdf, next->x, next->y);
+    	draw_transformed_line(fdf, params, current, next);
+	}
+	free(next);
+}
+
+//info --> handles the transformations
+
+void	draw_transformed_line(t_fdf *fdf, t_line *params, t_point *p0, t_point *p1)
+{
+	t_point	transformed_p0;
+	t_point	transformed_p1;
+
+	transformed_p0 = cartesian_to_iso(*p0);
+	transformed_p1 = cartesian_to_iso(*p1);
+    scale_and_center(fdf, &transformed_p0);
+    scale_and_center(fdf, &transformed_p1);
+
+    draw_line(fdf, &transformed_p0, &transformed_p1, params);
+}
+
+//info   --> draws a line using Bresenham algorithm
+//dx, dy --> difference between p0 and p1
+//p      --> decision parameter
+//steps  --> the movements we will make
+//p2     --> determine whether to move diagonally or along a single axis 
+
+void	draw_line(t_fdf *fdf, t_point *p0, t_point *p1, t_line *params)
+{
+	if (p0->x < 0 || p0->x >= DISP_X || p0->y < 0 || p0->y >= DISP_Y ||
+        p1->x < 0 || p1->x >= DISP_X || p1->y < 0 || p1->y >= DISP_Y)
+        return ;
+	params->dx = abs(p1->x - p0->x);
+	params->dy = -abs(p1->y - p0->y);
+	if (p0->x < p1->x)
+   		params->step_x = 1;
 	else
-		slope_bigger1(fdf, &point0, &point1, color);
-	free(fdf->delta);
+   		params->step_x = -1;
+	if (p0->y < p1->y)
+   		params->step_y = 1;
+	else
+    	params->step_y = -1;
+	params->p = params->dx + params->dy;
+	decision_maker(fdf, *p0, *p1, params);
 }
 
-void	slope_bigger1(t_fdf *fdf, t_point *point0, t_point *point1, int color)
+void	decision_maker(t_fdf *fdf, t_point p0, t_point p1, t_line *params)
 {
-	int	p;
+    int p2;
 
-	p = 2 * abs(fdf->delta->dx) - abs(fdf->delta->dy);
-	while (point0->y <= point1->y)
-	{
-		pixel_put(fdf, point0->x, point0->y, color);
-		point0->y++;
-		if (p < 0)
-			p = p + 2 * abs(fdf->delta->dx);
-		else
-		{
-			p = p + 2 * abs(fdf->delta->dx) - 2 * abs(fdf->delta->dy);
-			point0->x++;
-		}
-	}
-	return ;
+    while (1)
+    {
+		pixel_put(fdf, p0.x, p0.y, fdf->color);
+        if (p0.x == p1.x && p0.y == p1.y)
+            break;
+        p2 = 2 * params->p;
+        if (p2 >= params->dy)
+        {
+            params->p += params->dy;
+            p0.x += params->step_x;
+        }
+        if (p2 <= params->dx)
+        {
+            params->p += params->dx;
+            p0.y += params->step_y;
+        }
+    }
 }
-
-void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color)
-{
-	int	p;
-
-	p = 2 * abs(fdf->delta->dy) - abs(fdf->delta->dx);
-	while (point0->x <= point1->x)
-	{
-		pixel_put(fdf, point0->x, point0->y, color);
-		point0->x++;
-		if (p < 0)
-			p = p + 2 * abs(fdf->delta->dy);
-		else
-		{
-			p = p + 2 * abs(fdf->delta->dy) - 2 * abs(fdf->delta->dx);
-			point0->y++;
-		}
-	}
-	return ;
-}
-
