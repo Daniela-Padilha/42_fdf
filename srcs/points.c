@@ -131,21 +131,3 @@ int	map_width(t_fdf *fdf)
 	close(fd);
 	return (max);
 }
-void	scale_and_center(t_fdf *fdf, t_point *point)
-{
- double scale = 25.0; // Reduced from 50 to 25
-    int offset_x = 500;
-    int offset_y = 400;
-
-	(void)fdf;
-    point->x = (int)(point->x * scale) + offset_x;
-    point->y = (int)(point->y * scale) + offset_y - (point->z * 2); // Subtracted z*2 to lift higher points
-    point->z = point->z * 5;
-
-    // Ensure points are within the display area
-    point->x = fmax(0, fmin(point->x, DISP_X - 1));
-    point->y = fmax(0, fmin(point->y, DISP_Y - 1));
-
-    printf("After scale and center: x: %d, y: %d, z: %d\n", point->x, point->y, point->z);
-}
-

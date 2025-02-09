@@ -46,11 +46,14 @@ typedef struct s_point
 	int	z;
 }	t_point;
 
-typedef struct s_delta 
+typedef struct s_line 
 {
-	int	dx;
-	int	dy;
-}	t_delta;
+	int dx;
+    int dy;
+    int step_x;
+    int step_y;
+    int p;
+}	t_line;
 
 typedef struct s_fdf 
 {
@@ -65,25 +68,31 @@ typedef struct s_fdf
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			scale;
-	int			slope;
-	int			center_x;
-	int			center_y;
-	int			in_x;
-	int			in_y;
+	int			color;
+	double		scale;
 	t_point		*point;
-	t_delta		*delta;
+	t_line		*params;
 }	t_fdf;
 
 //Start
 void	fdf_init(t_fdf *fdf);
 
-//Points
+//Parse Map (points)
 int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
 int 	*line_to_ints(char *line);
+
+//Draw
+void	draw_map(t_fdf *fdf, t_line *params);
+void	draw_line(t_fdf *fdf, t_point p0, t_point p1, t_line *params);
+void	decision_maker(t_fdf *fdf, t_point p0, t_point p1, t_line *params);
+
+//Draw_utils
+t_point	cartesian_to_iso(t_point cartesian);
 void	scale_and_center(t_fdf *fdf, t_point *point);
+int		get_z_value(t_fdf *fdf, int x, int y);
+void	pixel_put(t_fdf *fdf, int x, int y, int color);
 
 //Events
 int 	close_window(t_fdf *fdf);
@@ -91,17 +100,8 @@ int		handle_keys(t_fdf *fdf, int keycode);
 int		handle_events(t_fdf *fdf);
 int		handle_mouse(t_fdf *fdf, int mousecode);
 
-//Draw
-void	draw_map(t_fdf *fdf);
-void 	draw_line(t_fdf *fdf, t_point point0, t_point point1, int color);
-void	slope_bigger1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
-void	slope_less1(t_fdf *fdf, t_point *point0, t_point *point1, int color);
-t_point	cartesian_to_iso(t_point cartesian);
-
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
-int		get_z_value(t_fdf *fdf, int x, int y);
-void	pixel_put(t_fdf *fdf, int x, int y, int color);
 
 #endif

@@ -24,4 +24,5 @@ void	fdf_init(t_fdf *fdf)
 	fdf->map = read_file(fdf);
 	fdf->height = map_height(fdf);
 	fdf->width = map_width(fdf);
+	fdf->color = RED;
 }
