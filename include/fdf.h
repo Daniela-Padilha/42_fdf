@@ -104,7 +104,7 @@ t_point get_next_point(t_fdf *fdf, int x, int y);
 int		clean_up(t_fdf *fdf);
 int		handle_keys(int keycode, void *params);
 int		handle_events(t_fdf *fdf);
-int		handle_mouse(t_fdf *fdf, int mousecode, int x, int y);
+int		handle_mouse(int mousecode, int x, int y, void *param);
 
 //Utils
 char	*check_args(int ac, char **av);

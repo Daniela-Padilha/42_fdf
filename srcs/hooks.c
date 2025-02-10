@@ -33,12 +33,23 @@ int	close_window(t_fdf *fdf)
 	exit(0);
 }
 
-int		clean_up(t_fdf *fdf)
+int	clean_up(t_fdf *fdf)
 {
-	mlx_destroy_image(fdf->mlx, fdf->img);
-    mlx_destroy_window(fdf->mlx, fdf->win);
-    mlx_destroy_display(fdf->mlx);
-    free_arrays((void **)fdf->map);
+	int	i;
+
+	if (fdf->img)
+		mlx_destroy_image(fdf->mlx, fdf->img);
+	if (fdf->win)
+    	mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
+	if (fdf->map)
+    {
+		i = 0;
+		while (i < fdf->height)
+			
+	}
+	free_arrays((void **)fdf->map);
     free(fdf->params);
 	exit(0);
 }
@@ -58,10 +69,13 @@ int	handle_keys(int keycode, void *param)
 
 //info --> handles mouse events
 
-int	handle_mouse(t_fdf *fdf, int mousecode, int x, int y)
+int	handle_mouse(int mousecode, int x, int y, void *param)
 {
+	t_fdf *fdf;
+
 	(void)x;
 	(void)y;
+	fdf = (t_fdf *)param;
 	if (mousecode == SCROLL_UP)
 	{
 		fdf->scale *= ZOOM_FACTOR;
