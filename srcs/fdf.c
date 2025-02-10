@@ -26,6 +26,7 @@ int	main(int ac, char **av)
 	
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
+	params_init(fdf.params);
 	handle_events(&fdf);
 	draw_map(&fdf, fdf.params);
 	mlx_loop(fdf.mlx);

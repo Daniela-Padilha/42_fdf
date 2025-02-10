@@ -47,10 +47,15 @@ int	clean_up(t_fdf *fdf)
     {
 		i = 0;
 		while (i < fdf->height)
-			
+		{
+			free(fdf->map[i]);
+			i++;
+		}
+		free(fdf->map);
 	}
-	free_arrays((void **)fdf->map);
-    free(fdf->params);
+	if (fdf->params)
+    	free(fdf->params);
+	free(fdf->mlx);
 	exit(0);
 }
 
