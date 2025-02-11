@@ -75,11 +75,10 @@ void	draw_transformed_line(t_fdf *fdf, t_line *params, t_point *p0, t_point *p1)
 	t_point	transformed_p0;
 	t_point	transformed_p1;
 
-	transformed_p0 = cartesian_to_iso(*p0);
-	transformed_p1 = cartesian_to_iso(*p1);
+	transformed_p0 = cartesian_to_iso(*p0, fdf);
+	transformed_p1 = cartesian_to_iso(*p1, fdf);
     scale_and_center(fdf, &transformed_p0);
     scale_and_center(fdf, &transformed_p1);
-
     draw_line(fdf, &transformed_p0, &transformed_p1, params);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:57:26 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/02/09 18:34:34 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:09:10 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 //info --> transform from cartesian to isometric
 
-t_point	cartesian_to_iso(t_point cartesian)
+t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf)
 {
 	t_point isometric;
 
+    cartesian.x *= fdf->scale;
+    cartesian.y *= fdf->scale;
+    cartesian.z *= fdf->scale;
     isometric.x = cartesian.x - cartesian.y;
     isometric.y = (cartesian.x + cartesian.y) / 2 - cartesian.z;
     isometric.z = cartesian.z;
@@ -31,11 +34,12 @@ void	scale_and_center(t_fdf *fdf, t_point *point)
     int offset_x;
     int offset_y;
 
+    (void)fdf;
 	offset_x = 500;
-	offset_y = 400;
-    point->x = (int)(point->x * fdf->scale) + offset_x;
-    point->y = (int)(point->y * fdf->scale) + offset_y - (point->z * 2);
-    point->z = point->z * 5;
+	offset_y = 500;
+    point->x = (int)point->x + offset_x;
+    point->y = (int)point->y + offset_y;
+    point->z = point->z;
     point->x = fmax(0, fmin(point->x, DISP_X - 1));
     point->y = fmax(0, fmin(point->y, DISP_Y - 1));
 }

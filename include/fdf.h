@@ -20,8 +20,8 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-# define DISP_Y	800
-# define DISP_X	1000
+# define DISP_Y	1900
+# define DISP_X	1080
 
 # define KEY_ESC	65307
 # define KEY_SUM	65451
@@ -33,8 +33,9 @@
 # define SCROLL_DOWN	5
 
 # define ZOOM_FACTOR	1.1
-#define MIN_SCALE 		0.1
-#define MAX_SCALE 		10
+# define MIN_SCALE 		0.1
+# define MAX_SCALE 		50
+# define SCALE			25
 
 # define WHITE	0xFFFFFF
 # define RED	0x00FF0000
@@ -96,7 +97,7 @@ void	draw_line(t_fdf *fdf, t_point *p0, t_point *p1, t_line *params);
 void	decision_maker(t_fdf *fdf, t_point p0, t_point p1, t_line *params);
 
 //Draw_utils
-t_point	cartesian_to_iso(t_point cartesian);
+t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf);
 void	scale_and_center(t_fdf *fdf, t_point *point);
 int		get_z_value(t_fdf *fdf, int x, int y);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);
@@ -111,5 +112,6 @@ int		handle_mouse(int mousecode, int x, int y, void *param);
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
+void	draw_diagon(t_fdf *fdf, t_line *params, t_point *current, t_point *next);
 
 #endif

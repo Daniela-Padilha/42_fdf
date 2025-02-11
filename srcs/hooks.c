@@ -65,8 +65,7 @@ int	handle_keys(int keycode, void *param)
 {
 	t_fdf *fdf;
 
-	fdf = (t_fdf *)param; 
-	printf("Key pressed: %d\n", keycode);
+	fdf = (t_fdf *)param;
 	if(keycode == KEY_ESC)
 		clean_up(fdf);
 	return (0);
@@ -93,6 +92,6 @@ int	handle_mouse(int mousecode, int x, int y, void *param)
 		if (fdf->scale < MIN_SCALE)
 			fdf->scale = MIN_SCALE;
 	}
-	draw_map(fdf, fdf->params); 
+	draw_map(fdf, fdf->params);
 	return (0);
 }

@@ -25,7 +25,7 @@ void	fdf_init(t_fdf *fdf)
 	fdf->img = mlx_new_image(fdf->mlx, DISP_X, DISP_Y);
 	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_per_pixel,
 			&fdf->line_length, &fdf->endian);
-	fdf->scale = 25.0;
+	fdf->scale = SCALE;
 	fdf->map = read_file(fdf);
 	fdf->height = map_height(fdf);
 	fdf->width = map_width(fdf);

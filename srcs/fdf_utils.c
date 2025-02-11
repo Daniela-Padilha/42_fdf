@@ -67,3 +67,12 @@ int	ft_count_nbr(char *str)
 	}
 	return (count);
 }
+//info --> draw diagonal lines when possible
+
+void	draw_diagon(t_fdf *fdf, t_line *params, t_point *current, t_point *next)
+{
+	next->x = current->x + 1;
+	next->y = current->y + 1;
+	next->z = get_z_value(fdf, next->x, next->y);
+	draw_transformed_line(fdf, params, current, next);
+}
