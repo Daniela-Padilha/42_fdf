@@ -24,6 +24,12 @@ char *check_args(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	file_type = ft_split(av[1], '.');
+	if (!file_type[1])
+	{
+		ft_putstr_fd("Error: file must be .fdf type\n", 2);
+		free_arrays((void **)file_type);
+		exit(EXIT_FAILURE);
+	}
 	if (ft_strncmp(file_type[1], "fdf", 3) == 0)
 	{
 		free_arrays((void **)file_type);
