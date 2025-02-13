@@ -42,7 +42,7 @@
 # define BLACK	0x000000
 # define BLUE	0x0000FF
 
-typedef struct s_point 
+typedef struct s_point
 {
 	int	x;
 	int	y;
@@ -51,16 +51,16 @@ typedef struct s_point
 	int	has_color;
 }	t_point;
 
-typedef struct s_line 
+typedef struct s_line
 {
-	int dx;
-    int dy;
-    int step_x;
-    int step_y;
-    int p;
+	int	dx;
+	int	dy;
+	int	step_x;
+	int	step_y;
+	int	p;
 }	t_line;
 
-typedef struct s_fdf 
+typedef struct s_fdf
 {
 	void		*mlx;
 	void		*win;
@@ -87,12 +87,13 @@ void	params_init(t_line *params);
 int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
-int 	*line_to_ints(char *line);
+int		*line_to_ints(char *line);
 
 //Draw
 void	draw_map(t_fdf *fdf, t_line *params);
 void	draw_part2(t_fdf *fdf, t_line *params, t_point *current);
-void	draw_transformed_line(t_fdf *fdf, t_line *params, t_point *p0, t_point *p1);
+void	draw_transformed_line(t_fdf *fdf, t_line *params, t_point *p0,
+			t_point *p1);
 void	draw_line(t_fdf *fdf, t_point *p0, t_point *p1, t_line *params);
 void	decision_maker(t_fdf *fdf, t_point p0, t_point p1, t_line *params);
 
@@ -101,7 +102,7 @@ t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf);
 void	scale_and_center(t_fdf *fdf, t_point *point);
 int		get_z_value(t_fdf *fdf, int x, int y);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);
-t_point get_next_point(t_fdf *fdf, int x, int y);
+t_point	get_next_point(t_fdf *fdf, int x, int y);
 
 //Hooks
 int		clean_up(t_fdf *fdf);
@@ -112,6 +113,7 @@ int		handle_mouse(int mousecode, int x, int y, void *param);
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
-void	draw_diagon(t_fdf *fdf, t_line *params, t_point *current, t_point *next);
+void	draw_diagon(t_fdf *fdf, t_line *params, t_point *current,
+			t_point *next);
 
 #endif
