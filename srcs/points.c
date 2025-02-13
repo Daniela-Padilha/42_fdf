@@ -54,7 +54,7 @@ int	*line_to_ints(char *line)
 
 	split_line = ft_split(line, ' ');
 	width = 0;
-	while(split_line[width])
+	while (split_line[width])
 		width++;
 	data = (int *)malloc(width * sizeof(int));
 	if (!data)
@@ -66,10 +66,9 @@ int	*line_to_ints(char *line)
 	while (split_line[i])
 	{
 		data[i] = ft_atoi(split_line[i]);
-		free(split_line[i]);
 		i++;
 	}
-	free(split_line);
+	free_arrays((void **)split_line);
 	return (data);
 }
 
@@ -79,8 +78,8 @@ int	map_height(t_fdf *fdf)
 {
 	int		fd;
 	char	*line;
-	int 	n_lines;
-	
+	int		n_lines;
+
 	fd = open(fdf->map_name, O_RDONLY);
 	if (fd == -1)
 		errors("Error: opening file failed", NULL, 1);
@@ -94,9 +93,11 @@ int	map_height(t_fdf *fdf)
 	}
 	if (n_lines == 0)
 	{
+		free(line),
 		close(fd);
 		errors("Error: map is empty", NULL, 1);
 	}
+	free(line);
 	close(fd);
 	return (n_lines);
 }
@@ -107,7 +108,7 @@ int	map_width(t_fdf *fdf)
 {
 	int		fd;
 	char	*line;
-	int 	line_len;
+	int		line_len;
 	int		max;
 
 	fd = open(fdf->map_name, O_RDONLY);

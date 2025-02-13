@@ -12,23 +12,16 @@
 
 #include "../include/fdf.h"
 
-// int	loop_hook_function(void *param)
-// {
-//     t_fdf *fdf = (t_fdf *)param;
-//     draw_map(fdf, BLUE);
-//     return 0;
-// }
-
-
 int	main(int ac, char **av)
 {
 	t_fdf	fdf;
-	
+
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
 	params_init(fdf.params);
 	handle_events(&fdf);
 	draw_map(&fdf, fdf.params);
 	mlx_loop(fdf.mlx);
+	clean_up(&fdf);
 	return (0);
 }

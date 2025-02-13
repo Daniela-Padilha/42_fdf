@@ -19,7 +19,7 @@ int	handle_events(t_fdf *fdf)
 	mlx_hook(fdf->win, 2, 1L << 0, handle_keys, fdf);
 	mlx_hook(fdf->win, 4, 1L << 2, handle_mouse, fdf);
 	mlx_hook(fdf->win, 17, 0L, clean_up, fdf);
-	return(0);
+	return (0);
 }
 //info --> closes the window
 
@@ -37,14 +37,8 @@ int	clean_up(t_fdf *fdf)
 {
 	int	i;
 
-	if (fdf->img)
-		mlx_destroy_image(fdf->mlx, fdf->img);
-	if (fdf->win)
-    	mlx_destroy_window(fdf->mlx, fdf->win);
-	if (fdf->mlx)
-		mlx_destroy_display(fdf->mlx);
 	if (fdf->map)
-    {
+	{
 		i = 0;
 		while (i < fdf->height)
 		{
@@ -54,7 +48,13 @@ int	clean_up(t_fdf *fdf)
 		free(fdf->map);
 	}
 	if (fdf->params)
-    	free(fdf->params);
+		free(fdf->params);
+	if (fdf->img)
+		mlx_destroy_image(fdf->mlx, fdf->img);
+	if (fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
 	free(fdf->mlx);
 	exit(0);
 }
@@ -63,10 +63,10 @@ int	clean_up(t_fdf *fdf)
 
 int	handle_keys(int keycode, void *param)
 {
-	t_fdf *fdf;
+	t_fdf	*fdf;
 
 	fdf = (t_fdf *)param;
-	if(keycode == KEY_ESC)
+	if (keycode == KEY_ESC)
 		clean_up(fdf);
 	return (0);
 }
@@ -75,7 +75,7 @@ int	handle_keys(int keycode, void *param)
 
 int	handle_mouse(int mousecode, int x, int y, void *param)
 {
-	t_fdf *fdf;
+	t_fdf	*fdf;
 
 	(void)x;
 	(void)y;

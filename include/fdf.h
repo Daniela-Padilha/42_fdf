@@ -113,7 +113,6 @@ int		handle_mouse(int mousecode, int x, int y, void *param);
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
-void	draw_diagon(t_fdf *fdf, t_line *params, t_point *current,
-			t_point *next);
+int		ft_str_isalnum(char *c);
 
 #endif

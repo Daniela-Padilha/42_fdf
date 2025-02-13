@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:36:08 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/02/13 18:38:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/13 21:27:23 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-get_colors()
-{
-	
-}
+// get_colors()
+// {
+// }

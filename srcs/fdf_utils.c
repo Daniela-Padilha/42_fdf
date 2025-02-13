@@ -14,7 +14,7 @@
 
 //info --> checks if the args are the right nbr and type
 
-char *check_args(int ac, char **av)
+char	*check_args(int ac, char **av)
 {
 	char	**file_type;
 
@@ -24,7 +24,7 @@ char *check_args(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	file_type = ft_split(av[1], '.');
-	if (!file_type[1])
+	if (!file_type[1] || !ft_str_isalnum(file_type[0]))
 	{
 		ft_putstr_fd("Error: file must be .fdf type\n", 2);
 		free_arrays((void **)file_type);
@@ -33,7 +33,7 @@ char *check_args(int ac, char **av)
 	if (ft_strncmp(file_type[1], "fdf", 3) == 0)
 	{
 		free_arrays((void **)file_type);
-		return(av[1]);
+		return (av[1]);
 	}
 	else
 	{
@@ -49,7 +49,7 @@ char *check_args(int ac, char **av)
 int	ft_count_nbr(char *str)
 {
 	int	i;
-	int count;
+	int	count;
 	int	in_nbr;
 
 	if (!str)
@@ -73,12 +73,21 @@ int	ft_count_nbr(char *str)
 	}
 	return (count);
 }
-//info --> draw diagonal lines when possible
+//info --> check if a string is alphanumeric only
 
-void	draw_diagon(t_fdf *fdf, t_line *params, t_point *current, t_point *next)
+int	ft_str_isalnum(char *c)
 {
-	next->x = current->x + 1;
-	next->y = current->y + 1;
-	next->z = get_z_value(fdf, next->x, next->y);
-	draw_transformed_line(fdf, params, current, next);
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		if (ft_isalpha(c[i]) || ft_isdigit(c[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }
+
+

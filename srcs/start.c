@@ -38,8 +38,8 @@ void	fdf_init(t_fdf *fdf)
 void	params_init(t_line *params)
 {
 	params->dx = 0;
-    params->dy = 0;
-    params->step_x = 0;
-    params->step_y = 0;
+	params->dy = 0;
+	params->step_x = 0;
+	params->step_y = 0;
 	params->p = 0;
 }
