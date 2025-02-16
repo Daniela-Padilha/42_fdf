@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../include/fdf_bonus.h"
 
 //info --> checks if the args are the right nbr and type
 

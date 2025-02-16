@@ -26,6 +26,7 @@ MINILIBX = $(MINILIBX_D)/libmlx.a
 LIBFT_D = ./libft
 LIBFT = $(LIBFT_D)/libft.a
 SRCS_D = ./srcs
+SRCS_BONUS_D = ./srcs_bonus
 INCLUDES = ./include
 
 #source files
@@ -37,7 +38,13 @@ SRC = $(SRCS_D)/fdf.c \
 		$(SRCS_D)/hooks.c \
 		$(SRCS_D)/fdf_utils.c \
 
-SRC_BONUS =
+SRC_BONUS = $(SRCS_BONUS_D)/fdf_bonus.c \
+		$(SRCS_BONUS_D)/start_bonus.c \
+		$(SRCS_BONUS_D)/points_bonus.c \
+		$(SRCS_BONUS_D)/draw_bonus.c \
+		$(SRCS_BONUS_D)/draw_utils_bonus.c \
+		$(SRCS_BONUS_D)/hooks_bonus.c \
+		$(SRCS_BONUS_D)/fdf_utils_bonus.c \
 
 
 #		   ________________________________________________
