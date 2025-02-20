@@ -22,6 +22,5 @@ int	main(int ac, char **av)
 	handle_events(&fdf);
 	draw_map(&fdf, fdf.params);
 	mlx_loop(fdf.mlx);
-	clean_up(&fdf);
 	return (0);
 }

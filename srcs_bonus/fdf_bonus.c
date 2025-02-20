@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 16:03:33 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/01/28 16:03:33 by ddo-carm         ###   ########.fr       */
+/*   Created: 2025/02/20 11:26:11 by ddo-carm          #+#    #+#             */
+/*   Updated: 2025/02/20 11:26:11 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int ac, char **av)
 	params_init(fdf.params);
 	handle_events(&fdf);
 	draw_map(&fdf, fdf.params);
+	print_menu(&fdf);
 	mlx_loop(fdf.mlx);
 	clean_up(&fdf);
 	return (0);

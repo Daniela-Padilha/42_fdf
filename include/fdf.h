@@ -20,24 +20,12 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-# define DISP_Y	1080
-# define DISP_X	1920
+# define INIT_HEIGHT	1080
+# define INIT_WIDTH 	1900
 
 # define KEY_ESC	65307
-# define KEY_PLUS	65451
-# define KEY_MINUS	65453
-# define MOUSE_LEFT		1
-# define MOUSE_RIGHT	2
-# define MOUSE_MIDDLE	3
-# define SCROLL_UP		4
-# define SCROLL_DOWN	5
-# define UP_ARROW		65362
-# define DOWN_ARROW		65364
 
-# define ZOOM_FACTOR	1.1
-# define MIN_SCALE 		0.1
-# define MAX_SCALE 		100
-# define SCALE			5
+# define SCALE			25
 
 # define WHITE	0xFFFFFF
 # define RED	0x00FF0000
@@ -69,6 +57,8 @@ typedef struct s_fdf
 	void		*img;
 	char		*map_name;
 	int			**map;
+	int			win_height;
+	int			win_width;
 	int			height;
 	int			width;
 	char		*addr;
@@ -85,7 +75,7 @@ typedef struct s_fdf
 void	fdf_init(t_fdf *fdf);
 void	params_init(t_line *params);
 
-//Parse Map (points)
+//Points (parsing)
 int		**read_file(t_fdf *fdf);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
@@ -107,14 +97,15 @@ void	pixel_put(t_fdf *fdf, int x, int y, int color);
 t_point	get_next_point(t_fdf *fdf, int x, int y);
 
 //Hooks
-int		clean_up(t_fdf *fdf);
 int		handle_keys(int keycode, void *params);
 int		handle_events(t_fdf *fdf);
 int		handle_mouse(int mousecode, int x, int y, void *param);
+int		handle_resize(int width, int height, void *param);
 
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
 int		ft_str_isalnum(char *c);
+int		clean_up(t_fdf *fdf);
 
 #endif

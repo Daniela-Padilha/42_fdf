@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   fdf_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 17:29:43 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/01/28 17:29:43 by ddo-carm         ###   ########.fr       */
+/*   Created: 2025/02/20 11:26:17 by ddo-carm          #+#    #+#             */
+/*   Updated: 2025/02/20 11:26:17 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,37 @@ int	ft_str_isalnum(char *c)
 	i = 0;
 	while (c[i])
 	{
-		if (c[i] >= 33 && c[i] <= 126)
+		if (ft_isalpha(c[i]) || ft_isdigit(c[i]))
 			i++;
 		else
 			return (0);
 	}
 	return (1);
+}
+//info --> cleans up everything when the window is closec
+
+int	clean_up(t_fdf *fdf)
+{
+	int	i;
+
+	if (fdf->map)
+	{
+		i = 0;
+		while (i < fdf->height)
+		{
+			free(fdf->map[i]);
+			i++;
+		}
+		free(fdf->map);
+	}
+	if (fdf->params)
+		free(fdf->params);
+	if (fdf->img)
+		mlx_destroy_image(fdf->mlx, fdf->img);
+	if (fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
+	free(fdf->mlx);
+	exit(0);
 }

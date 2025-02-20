@@ -89,3 +89,30 @@ int	ft_str_isalnum(char *c)
 	}
 	return (1);
 }
+//info --> cleans up everything when the window is closec
+
+int	clean_up(t_fdf *fdf)
+{
+	int	i;
+
+	if (fdf->map)
+	{
+		i = 0;
+		while (i < fdf->height)
+		{
+			free(fdf->map[i]);
+			i++;
+		}
+		free(fdf->map);
+	}
+	if (fdf->params)
+		free(fdf->params);
+	if (fdf->img)
+		mlx_destroy_image(fdf->mlx, fdf->img);
+	if (fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
+	free(fdf->mlx);
+	exit(0);
+}

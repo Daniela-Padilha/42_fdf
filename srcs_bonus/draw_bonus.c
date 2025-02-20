@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 16:31:46 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/01/31 16:31:46 by ddo-carm         ###   ########.fr       */
+/*   Created: 2025/02/20 11:26:01 by ddo-carm          #+#    #+#             */
+/*   Updated: 2025/02/20 11:26:01 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/fdf_bonus.h"
 
@@ -24,7 +25,7 @@ void	draw_map(t_fdf *fdf, t_line *params)
 		errors("Error: Null pointer detected in draw_map", NULL, 0);
 		return ;
 	}
-	ft_memset(fdf->addr, 0, DISP_Y * fdf->line_length);
+	ft_memset(fdf->addr, 0, fdf->win_height * fdf->line_length);
 	y = 0;
 	while (y < fdf->height)
 	{
@@ -91,8 +92,8 @@ void	draw_transformed_line(t_fdf *fdf, t_line *params, t_point *p0,
 
 void	draw_line(t_fdf *fdf, t_point *p0, t_point *p1, t_line *params)
 {
-	if (p0->x < 0 || p0->x >= DISP_X || p0->y < 0 || p0->y >= DISP_Y
-		|| p1->x < 0 || p1->x >= DISP_X || p1->y < 0 || p1->y >= DISP_Y)
+	if (p0->x < 0 || p0->x >= fdf->win_width || p0->y < 0 || p0->y >= fdf->win_height
+		|| p1->x < 0 || p1->x >= fdf->win_width || p1->y < 0 || p1->y >= fdf->win_height)
 		return ;
 	params->dx = abs(p1->x - p0->x);
 	params->dy = -abs(p1->y - p0->y);
