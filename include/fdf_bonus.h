@@ -21,12 +21,20 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-# define INIT_HEIGHT	1080
-# define INIT_WIDTH 	1900
+# define DISP_Y			1080
+# define DISP_X		 	1900
 
-# define KEY_ESC	65307
-# define KEY_SUM	65451
-# define KEY_MINUS	65453
+# define KEY_ESC		65307
+# define KEY_PLUS		65451
+# define KEY_MINUS		65453
+# define UP_ARROW		65362
+# define DOWN_ARROW		65364
+# define KEY_Z			122
+# define KEY_X			120
+# define KEY_A			97
+# define KEY_D			100
+# define KEY_W			119
+# define KEY_S			115
 # define SCROLL_UP		4
 # define SCROLL_DOWN	5
 
@@ -34,6 +42,8 @@
 # define MIN_SCALE 		0.1
 # define MAX_SCALE 		50
 # define SCALE			25
+# define MIN_ANGLE		-0.6
+# define MAX_ANGLE		0.6
 
 # define WHITE	0xFFFFFF
 # define RED	0x00FF0000
@@ -45,8 +55,6 @@ typedef struct s_point
 	int	x;
 	int	y;
 	int	z;
-	int	color;
-	int	has_color;
 }	t_point;
 
 typedef struct s_line
@@ -65,8 +73,6 @@ typedef struct s_fdf
 	void		*img;
 	char		*map_name;
 	int			**map;
-	int			win_height;
-	int			win_width;
 	int			height;
 	int			width;
 	char		*addr;
@@ -75,6 +81,10 @@ typedef struct s_fdf
 	int			endian;
 	int			color;
 	double		scale;
+	double		angle;
+	int			translate_x;
+	int			translate_y;
+	int			translate_z;
 	t_point		*point;
 	t_line		*params;
 }	t_fdf;
@@ -105,10 +115,15 @@ void	pixel_put(t_fdf *fdf, int x, int y, int color);
 t_point	get_next_point(t_fdf *fdf, int x, int y);
 
 //Hooks
-int		handle_keys(int keycode, void *params);
 int		handle_events(t_fdf *fdf);
 int		handle_mouse(int mousecode, int x, int y, void *param);
-int		handle_resize(int width, int height, void *param);
+
+//Key Hooks
+int		handle_keys(int keycode, void *param);
+void	zoom(int keycode, t_fdf *fdf);
+void	angle(int keycode, t_fdf *fdf);
+void	translate(int keycode, t_fdf *fdf);
+
 
 //Utils
 char	*check_args(int ac, char **av);

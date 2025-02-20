@@ -17,17 +17,19 @@
 void	fdf_init(t_fdf *fdf)
 {
 	fdf->mlx = mlx_init();
-	fdf->win_width = INIT_WIDTH;
-	fdf->win_height = INIT_HEIGHT;
 	if (!fdf->mlx)
 		errors("Error: mlx initialization failed", NULL, 1);
-	fdf->win = mlx_new_window(fdf->mlx, fdf->win_width, fdf->win_height, "FdF");
+	fdf->win = mlx_new_window(fdf->mlx, DISP_X, DISP_Y, "FdF");
 	if (!fdf->win)
 		errors("Error: window creation failed", NULL, 1);
-	fdf->img = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
+	fdf->img = mlx_new_image(fdf->mlx, DISP_X, DISP_Y);
 	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_per_pixel,
 			&fdf->line_length, &fdf->endian);
 	fdf->scale = SCALE;
+	fdf->angle = M_PI / 6;
+	fdf->translate_x = 0;
+	fdf->translate_y = 0;
+	fdf->translate_z = 0;
 	fdf->map = read_file(fdf);
 	fdf->height = map_height(fdf);
 	fdf->width = map_width(fdf);

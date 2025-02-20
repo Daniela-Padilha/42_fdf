@@ -44,6 +44,7 @@ SRC_BONUS = $(SRCS_BONUS_D)/fdf_bonus.c \
 		$(SRCS_BONUS_D)/draw_bonus.c \
 		$(SRCS_BONUS_D)/draw_utils_bonus.c \
 		$(SRCS_BONUS_D)/hooks_bonus.c \
+		$(SRCS_BONUS_D)/key_hooks_bonus.c \
 		$(SRCS_BONUS_D)/fdf_utils_bonus.c \
 		$(SRCS_BONUS_D)/menu_bonus.c \
 

@@ -22,18 +22,6 @@ int	handle_events(t_fdf *fdf)
 	return (0);
 }
 
-//info --> handle key events
-
-int	handle_keys(int keycode, void *param)
-{
-	t_fdf	*fdf;
-
-	fdf = (t_fdf *)param;
-	if (keycode == KEY_ESC)
-		clean_up(fdf);
-	return (0);
-}
-
 //info --> handles mouse events
 
 int	handle_mouse(int mousecode, int x, int y, void *param)
