@@ -40,6 +40,7 @@ void	draw_map(t_fdf *fdf, t_line *params)
 		y++;
 	}
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
+	print_menu(fdf);
 }
 
 void	draw_part2(t_fdf *fdf, t_line *params, t_point *current)

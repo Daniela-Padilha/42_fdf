@@ -21,8 +21,6 @@ int	main(int ac, char **av)
 	params_init(fdf.params);
 	handle_events(&fdf);
 	draw_map(&fdf, fdf.params);
-	print_menu(&fdf);
 	mlx_loop(fdf.mlx);
-	clean_up(&fdf);
 	return (0);
 }
