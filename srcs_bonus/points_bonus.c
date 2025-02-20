@@ -118,7 +118,7 @@ int	map_width(t_fdf *fdf)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		line_len = ft_count_nbr(line);
+		line_len = ft_count_nbr(line, 0, 0, 0);
 		if (line_len > max)
 			max = line_len;
 		free(line);

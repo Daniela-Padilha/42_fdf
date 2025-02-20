@@ -114,6 +114,7 @@ t_point	get_next_point(t_fdf *fdf, int x, int y);
 //Hooks
 int		handle_events(t_fdf *fdf);
 int		handle_mouse(int mousecode, int x, int y, void *param);
+int		clean_up(t_fdf *fdf);
 
 //Key Hooks
 int		handle_keys(int keycode, void *param);
@@ -123,9 +124,8 @@ void	translate(int keycode, t_fdf *fdf);
 
 //Utils
 char	*check_args(int ac, char **av);
-int		ft_count_nbr(char *str);
+int		ft_count_nbr(char *str, int i, int count, int in_nbr);
 int		ft_str_isalnum(char *c);
-int		clean_up(t_fdf *fdf);
 
 //Menu
 void	print_menu(t_fdf *fdf);

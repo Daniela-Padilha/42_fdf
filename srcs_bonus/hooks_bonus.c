@@ -46,3 +46,31 @@ int	handle_mouse(int mousecode, int x, int y, void *param)
 	draw_map(fdf, fdf->params);
 	return (0);
 }
+
+//info --> cleans up everything when the window is closed
+
+int	clean_up(t_fdf *fdf)
+{
+	int	i;
+
+	if (fdf->map)
+	{
+		i = 0;
+		while (i < fdf->height)
+		{
+			free(fdf->map[i]);
+			i++;
+		}
+		free(fdf->map);
+	}
+	if (fdf->params)
+		free(fdf->params);
+	if (fdf->img)
+		mlx_destroy_image(fdf->mlx, fdf->img);
+	if (fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
+	free(fdf->mlx);
+	exit(0);
+}

@@ -44,22 +44,15 @@ char	*check_args(int ac, char **av)
 }
 
 //info --> counts the nbrs in a line, ignoring spaces and 
-//			handling nbrs with multiple digits
+//			handling nbrs with multiple digits, and colors
 
-int	ft_count_nbr(char *str)
+int	ft_count_nbr(char *str, int i, int count, int in_nbr)
 {
-	int	i;
-	int	count;
-	int	in_nbr;
-
 	if (!str)
 		return (0);
-	i = 0;
-	count = 0;
-	in_nbr = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_isdigit(str[i]))
+		if (ft_isdigit(str[i]) || str[i] == '-' || str[i] == '+')
 		{
 			if (in_nbr == 0)
 			{
@@ -67,13 +60,20 @@ int	ft_count_nbr(char *str)
 				count++;
 			}
 		}
-		else
+		else if (str[i] == ',')
+		{
+			while (str[i] && !ft_is_space(str[i]))
+				i++;
+			continue ;
+		}
+		else if (ft_is_space(str[i]))
 			in_nbr = 0;
 		i++;
 	}
 	return (count);
 }
-//info --> check if a string is alphanumeric only
+
+//info --> check if a string is is number, letters or symbols
 
 int	ft_str_isalnum(char *c)
 {
@@ -88,31 +88,4 @@ int	ft_str_isalnum(char *c)
 			return (0);
 	}
 	return (1);
-}
-//info --> cleans up everything when the window is closec
-
-int	clean_up(t_fdf *fdf)
-{
-	int	i;
-
-	if (fdf->map)
-	{
-		i = 0;
-		while (i < fdf->height)
-		{
-			free(fdf->map[i]);
-			i++;
-		}
-		free(fdf->map);
-	}
-	if (fdf->params)
-		free(fdf->params);
-	if (fdf->img)
-		mlx_destroy_image(fdf->mlx, fdf->img);
-	if (fdf->win)
-		mlx_destroy_window(fdf->mlx, fdf->win);
-	if (fdf->mlx)
-		mlx_destroy_display(fdf->mlx);
-	free(fdf->mlx);
-	exit(0);
 }
