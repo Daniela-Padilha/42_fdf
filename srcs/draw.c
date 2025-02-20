@@ -24,7 +24,7 @@ void	draw_map(t_fdf *fdf, t_line *params)
 		errors("Error: Null pointer detected in draw_map", NULL, 0);
 		return ;
 	}
-	ft_memset(fdf->addr, 0, DISP_Y  * fdf->line_length);
+	ft_memset(fdf->addr, 0, DISP_Y * fdf->line_length);
 	y = 0;
 	while (y < fdf->height)
 	{

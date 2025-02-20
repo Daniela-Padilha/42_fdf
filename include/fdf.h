@@ -17,8 +17,6 @@
 # include "../minilibx_linux/mlx.h"
 # include <unistd.h>
 # include <math.h>
-# include <stdbool.h>
-# include <stdio.h>
 
 # define DISP_Y			1080
 # define DISP_X		 	1900
@@ -89,7 +87,7 @@ void	decision_maker(t_fdf *fdf, t_point p0, t_point p1, t_line *params);
 
 //Draw_utils
 t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf);
-void	scale_and_center(t_fdf *fdf, t_point *point);
+void	center(t_fdf *fdf, t_point *point);
 int		get_z_value(t_fdf *fdf, int x, int y);
 void	pixel_put(t_fdf *fdf, int x, int y, int color);
 t_point	get_next_point(t_fdf *fdf, int x, int y);

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 11:26:06 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/02/20 12:28:12 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:09:59 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf)
 	t_point	isometric;
 
 	cartesian.x += fdf->translate_x;
-    cartesian.y += fdf->translate_y;
-    cartesian.z += fdf->translate_z;
+	cartesian.y += fdf->translate_y;
+	cartesian.z += fdf->translate_z;
 	cartesian.x *= fdf->scale;
 	cartesian.y *= fdf->scale;
 	cartesian.z *= fdf->scale;
@@ -32,7 +32,7 @@ t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf)
 
 //info --> aplly scale and center the map
 
-void	scale_and_center(t_fdf *fdf, t_point *point)
+void	center(t_fdf *fdf, t_point *point)
 {
 	(void)fdf;
 	point->x += DISP_X / 2.0;

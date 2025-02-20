@@ -17,7 +17,8 @@ void	print_menu(t_fdf *fdf)
 	int	y;
 
 	y = 50;
-	mlx_string_put(fdf->mlx, fdf->win, 65, y, WHITE, ">>----> Controls: <----<<");
+	mlx_string_put(fdf->mlx, fdf->win, 65, y, WHITE,
+		">>----> Controls: <----<<");
 	y += 45;
 	mlx_string_put(fdf->mlx, fdf->win, 30, y, WHITE, "Zoom: Scroll or +/-");
 	y += 30;
@@ -25,7 +26,8 @@ void	print_menu(t_fdf *fdf)
 	y += 30;
 	mlx_string_put(fdf->mlx, fdf->win, 30, y, WHITE, "Move Y-Axis: W and S");
 	y += 30;
-	mlx_string_put(fdf->mlx, fdf->win, 30, y, WHITE, "Move Z-Axis: Up and Down Arrows");
+	mlx_string_put(fdf->mlx, fdf->win, 30, y, WHITE,
+		"Move Z-Axis: Up and Down Arrows");
 	y += 30;
 	mlx_string_put(fdf->mlx, fdf->win, 30, y, WHITE, "Rotate: Z and X");
 }

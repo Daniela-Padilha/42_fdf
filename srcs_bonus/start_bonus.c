@@ -24,7 +24,7 @@ void	fdf_init(t_fdf *fdf)
 		errors("Error: window creation failed", NULL, 1);
 	fdf->img = mlx_new_image(fdf->mlx, DISP_X, DISP_Y);
 	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_per_pixel,
-			&fdf->line_length, &fdf->endian);	
+			&fdf->line_length, &fdf->endian);
 	fdf->scale = SCALE;
 	fdf->angle = M_PI / 6;
 	fdf->translate_x = 0;

@@ -61,7 +61,7 @@ void	translate(int keycode, t_fdf *fdf)
 	if (keycode == KEY_W)
 		fdf->translate_y -= 2;
 	else if (keycode == KEY_S)
-        fdf->translate_y += 2;
+		fdf->translate_y += 2;
 	if (keycode == UP_ARROW)
 		fdf->translate_z += 2;
 	else if (keycode == DOWN_ARROW)

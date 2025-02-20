@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:57:26 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/02/20 13:01:15 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:10:09 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf)
 
 //info --> aplly scale and center the map
 
-void	scale_and_center(t_fdf *fdf, t_point *point)
+void	center(t_fdf *fdf, t_point *point)
 {
 	(void)fdf;
 	point->x += DISP_X / 2.0;
