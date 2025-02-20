@@ -118,6 +118,7 @@ fclean: clean
 #remake
 re: fclean
 	make all
+	make bonus
 	@echo "$(BMAG)✨Re-compile was $(BGRN)successfull✨"
 
 #          ________________________________________________

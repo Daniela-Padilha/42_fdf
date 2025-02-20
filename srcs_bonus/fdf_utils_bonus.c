@@ -82,7 +82,7 @@ int	ft_str_isalnum(char *c)
 	i = 0;
 	while (c[i])
 	{
-		if (ft_isalpha(c[i]) || ft_isdigit(c[i]))
+		if (c[i] >= 33 && c[i] <= 126)
 			i++;
 		else
 			return (0);
