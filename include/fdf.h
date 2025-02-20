@@ -20,10 +20,10 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-# define INIT_HEIGHT	1080
-# define INIT_WIDTH 	1900
+# define DISP_Y			1080
+# define DISP_X		 	1900
 
-# define KEY_ESC	65307
+# define KEY_ESC		65307
 
 # define SCALE			25
 
@@ -57,8 +57,6 @@ typedef struct s_fdf
 	void		*img;
 	char		*map_name;
 	int			**map;
-	int			win_height;
-	int			win_width;
 	int			height;
 	int			width;
 	char		*addr;

@@ -6,7 +6,7 @@
 /*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:57:26 by ddo-carm          #+#    #+#             */
-/*   Updated: 2025/02/20 12:07:26 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:01:15 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,9 @@ t_point	cartesian_to_iso(t_point cartesian, t_fdf *fdf)
 
 void	scale_and_center(t_fdf *fdf, t_point *point)
 {
-	int	offset_x;
-	int	offset_y;
-
 	(void)fdf;
-	offset_x = fdf->win_width / 2;
-	offset_y = fdf->win_height / 2;
-	point->x = (int)point->x + offset_x;
-	point->y = (int)point->y + offset_y;
-	point->z = point->z;
-	point->x = fmax(0, fmin(point->x, fdf->win_width - 1));
-	point->y = fmax(0, fmin(point->y, fdf->win_height - 1));
+	point->x += DISP_X / 2.0;
+	point->y += DISP_Y / 2.0;
 }
 
 //info --> returns the int at position row y, collumn x
@@ -59,7 +51,7 @@ void	pixel_put(t_fdf *fdf, int x, int y, int color)
 {
 	char	*pxl;
 
-	if (x < 0 || y < 0 || x >= fdf->win_width || y >= fdf->win_height)
+	if (x < 0 || y < 0 || x >= DISP_X || y >= DISP_Y)
 		return ;
 	pxl = fdf->addr + (y * fdf->line_length + x * (fdf->bits_per_pixel / 8));
 	*(unsigned int *)pxl = color;

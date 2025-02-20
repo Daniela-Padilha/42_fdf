@@ -124,7 +124,6 @@ void	zoom(int keycode, t_fdf *fdf);
 void	angle(int keycode, t_fdf *fdf);
 void	translate(int keycode, t_fdf *fdf);
 
-
 //Utils
 char	*check_args(int ac, char **av);
 int		ft_count_nbr(char *str);
