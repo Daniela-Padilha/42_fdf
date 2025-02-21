@@ -3,6 +3,37 @@
 Fdf (Fil de Fer) is a 42 school graphical project that deals with wireframe modeling, aimed to better understand how to place points in space, how to join them with segments and how to observe the scene from a particular viewpoint. 
 This project uses the school's graphical library, MiniLibX.
 
+## Demo
+Coming soon...
+
+## Build
+
+Clone the repository:
+```shell
+git clone https://github.com/Daniela-Padilha/42_fdf.git
+```
+Enter the cloned directory
+```shell
+cd 42_fdf
+```
+Run `make` to compile the program without bonus:
+```shell
+make
+```
+With bonus:
+```shell
+make bonus
+```
+
+## Usage example
+
+```shell
+./fdf test_maps/42.fdf
+```
+
+```shell
+./fdf_bonus test_maps/42.fdf
+```
 
 ## Sources
 
