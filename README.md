@@ -25,7 +25,7 @@ With bonus:
 make bonus
 ```
 
-## Usage example
+## Usage examples
 
 ```shell
 ./fdf test_maps/42.fdf
