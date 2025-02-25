@@ -19,6 +19,9 @@ int	main(int ac, char **av)
 	fdf.map_name = check_args(ac, av);
 	fdf_init(&fdf);
 	params_init(fdf.params);
+	fdf.map = read_file(&fdf, 0);
+	fdf.height = map_height(&fdf);
+	fdf.width = map_width(&fdf);
 	handle_events(&fdf);
 	draw_map(&fdf, fdf.params);
 	mlx_loop(fdf.mlx);

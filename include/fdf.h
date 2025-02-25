@@ -72,7 +72,7 @@ void	fdf_init(t_fdf *fdf);
 void	params_init(t_line *params);
 
 //Points (parsing)
-int		**read_file(t_fdf *fdf);
+int		**read_file(t_fdf *fdf, int i);
 int		map_height(t_fdf *fdf);
 int		map_width(t_fdf *fdf);
 int		*line_to_ints(char *line);

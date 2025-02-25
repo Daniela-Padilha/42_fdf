@@ -11,19 +11,22 @@
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+void	var_init(t_fdf *fdf);
 
 //info --> reads the file and stores the numbers in a 2D array
 
-int	**read_file(t_fdf *fdf)
+int	**read_file(t_fdf *fdf, int i)
 {
 	int		fd;
 	char	*line;
 	int		**map;
-	int		i;
 
 	fd = open(fdf->map_name, O_RDONLY);
 	if (fd == -1)
-		errors("Error: opening file failed", NULL, 1);
+	{
+		errors("Error: opening file failed", NULL, 0);
+		clean_up(fdf);
+	}
 	fdf->height = map_height(fdf);
 	map = (int **)malloc(fdf->height * sizeof(int *));
 	if (!map)
@@ -31,7 +34,6 @@ int	**read_file(t_fdf *fdf)
 		close(fd);
 		errors("Error: mem allocation failed", NULL, 1);
 	}
-	i = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -39,8 +41,7 @@ int	**read_file(t_fdf *fdf)
 		free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
-	return (map);
+	return (close(fd), map);
 }
 
 //info --> converts the line into an array of ints

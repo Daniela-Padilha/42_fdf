@@ -12,7 +12,7 @@
 
 #include "../include/fdf.h"
 
-//info --> initializes the struct
+//info --> initializes the fdf struct
 
 void	fdf_init(t_fdf *fdf)
 {
@@ -26,14 +26,16 @@ void	fdf_init(t_fdf *fdf)
 	fdf->addr = mlx_get_data_addr(fdf->img, &fdf->bits_per_pixel,
 			&fdf->line_length, &fdf->endian);
 	fdf->scale = SCALE;
-	fdf->map = read_file(fdf);
-	fdf->height = map_height(fdf);
-	fdf->width = map_width(fdf);
+	fdf->map = NULL;
+	fdf->height = 0;
+	fdf->width = 0;
 	fdf->color = RED;
 	fdf->params = malloc(sizeof(t_line));
 	if (!fdf->params)
 		errors("Error: memory allocation for params failed", NULL, 1);
 }
+
+//info --> initializes the params struct
 
 void	params_init(t_line *params)
 {

@@ -40,7 +40,7 @@ int	clean_up(t_fdf *fdf)
 {
 	int	i;
 
-	if (fdf->map)
+	if (fdf->map != NULL)
 	{
 		i = 0;
 		while (i < fdf->height)

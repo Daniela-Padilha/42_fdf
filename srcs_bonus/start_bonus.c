@@ -30,9 +30,9 @@ void	fdf_init(t_fdf *fdf)
 	fdf->translate_x = 0;
 	fdf->translate_y = 0;
 	fdf->translate_z = 0;
-	fdf->map = read_file(fdf);
-	fdf->height = map_height(fdf);
-	fdf->width = map_width(fdf);
+	fdf->map = NULL;
+	fdf->height = 0;
+	fdf->width = 0;
 	fdf->color = BLUE;
 	fdf->params = malloc(sizeof(t_line));
 	if (!fdf->params)
