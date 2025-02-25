@@ -63,7 +63,7 @@ SRC = $(SRCS_D)/ft_isalpha.c \
 	$(SRCS_D)/close_pipe.c \
 	$(SRCS_D)/ft_atoi_base.c \
 	$(SRCS_D)/ft_is_space.c \
-
+	$(SRCS_D)/ft_atol.c \
 
 BONUS_SRC = $(SRCS_D)/ft_lstnew_bonus.c \
 			$(SRCS_D)/ft_lstadd_front_bonus.c \

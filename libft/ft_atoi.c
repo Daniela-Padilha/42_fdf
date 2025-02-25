@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddo-carm <ddo-carm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddo-carm <ddo-carm@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:51:22 by ddo-carm          #+#    #+#             */
-/*   Updated: 2024/11/02 16:22:09 by ddo-carm         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:24:56 by ddo-carm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 //info   --> Convert a str to an int
-//nptr    --> String to convert
+//nptr   --> String to convert
 //return --> Success (int)
 //return --> Failure (0)
 
