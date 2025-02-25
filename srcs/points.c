@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-void	var_init(t_fdf *fdf);
 
 //info --> reads the file and stores the numbers in a 2D array
 
