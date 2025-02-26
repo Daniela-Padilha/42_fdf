@@ -4,7 +4,8 @@ Fdf (Fil de Fer) is a 42 school graphical project that deals with wireframe mode
 This project uses the school's graphical library, MiniLibX.
 
 ## Demo
-Coming soon...
+
+[Fdf Demo](https://github.com/user-attachments/assets/92aaa2c7-3f8b-4e94-bb4c-9f2751a728c3)
 
 ## Build
 
