@@ -4,12 +4,14 @@ Fdf (Fil de Fer) is a 42 school graphical project that deals with wireframe mode
 This project uses the school's graphical library, MiniLibX.
 
 ## Demo
+Here is a demonstration of what my fdf_bonus can do
 
-[Fdf Demo](https://github.com/user-attachments/assets/92aaa2c7-3f8b-4e94-bb4c-9f2751a728c3)
+[fdf.webm](https://github.com/user-attachments/assets/28bf07d1-64db-4383-b315-72a8770bd445)
 
 ## Build
 
 Clone the repository:
+
 ```shell
 git clone https://github.com/Daniela-Padilha/42_fdf.git
 ```
