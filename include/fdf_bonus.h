@@ -19,7 +19,7 @@
 # include <math.h>
 
 # define DISP_Y			1080
-# define DISP_X		 	1900
+# define DISP_X		 	1920
 
 # define KEY_ESC		65307
 # define KEY_PLUS		65451

@@ -13,6 +13,8 @@
 #include "../include/fdf.h"
 
 //info --> initializes the fdf struct
+// 			'bits_per_pixel`, `line_length`, and `endian` will
+//			be set accordingly by libx
 
 void	fdf_init(t_fdf *fdf)
 {

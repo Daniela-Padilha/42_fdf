@@ -19,7 +19,7 @@
 # include <math.h>
 
 # define DISP_Y			1080
-# define DISP_X		 	1900
+# define DISP_X		 	1920
 
 # define KEY_ESC		65307
 
@@ -35,8 +35,6 @@ typedef struct s_point
 	int	x;
 	int	y;
 	int	z;
-	int	color;
-	int	has_color;
 }	t_point;
 
 typedef struct s_line
